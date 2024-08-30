@@ -5,9 +5,6 @@ from django.contrib.auth.models import User  # Utilizamos el modelo integrado Us
 from django.contrib.auth import login, authenticate, logout
 
 
-# def index(request):
-#     return render(request, "index.html")
-# Create your views here.
 def index(request):
     if request.user.is_authenticated:
         return redirect("home")
@@ -73,9 +70,9 @@ def session(request):
 def delete_session(request):
     if request.user.is_authenticated:
         logout(request)
+        return redirect("index")
+    else:
         return redirect("login")
-
-    return redirect("index")
 
 
 def home(request):
