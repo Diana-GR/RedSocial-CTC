@@ -79,3 +79,11 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, "home.html")
     return redirect("index")
+
+
+def profile(request):
+    return render(request, "profile.html")
+
+
+def aboutus(request):
+    return render(request, "about-us.html")
