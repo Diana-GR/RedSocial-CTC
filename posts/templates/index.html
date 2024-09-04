@@ -12,16 +12,22 @@
     <link rel="stylesheet" href="{% static "index.css" %}"/>
   </head>
   <body>
-    <div class="container">
-    <h1 class= "h1">Bienvenida a QuikTalk</h1>
-    <h2> Únete hoy </h2>
+    <div class= "main-container">
+      <div class="container">
+       <h1 class= "h1">Bienvenida a QuikTalk</h1>
+      <h2> Únete hoy </h2>
 
-    <button> Iniciar sesión </button>
-    <button> Crear cuenta </button>
+      
+      <button>
+      <a class="nav-link" href="{% url "signup" %}">Crear cuenta</a>
+    </button>
+
+    <button>
+      <a class="nav-link" href="{% url "login" %}">Iniciar sesión</a>
+    </button>
+      <div/>
         
-        
-        
-        </div>
+    </div>
 
   </body>
   </html>

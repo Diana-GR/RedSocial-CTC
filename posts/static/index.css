@@ -1,6 +1,27 @@
 .container{
-    background-color: blue;
+    
 }
 .h1{
     color: brown;
 }
+
+html, body {
+    height: 100%; /* Asegúrate de que el html y el body ocupen el 100% de la altura */
+    margin: 0; /* Elimina los márgenes por defecto */
+    position: relative; /* Asegura que el body sea el contenedor de referencia */
+  }
+  
+  .container {
+    
+    width: 450px;
+    
+   
+    position: absolute; /* Posiciona el div absolutamente */
+    top: 50%; /* Posiciona el div en el centro verticalmente */
+    left: 50%; /* Posiciona el div en el centro horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición para centrarlo perfectamente */
+  }
+  
+  .main-container{
+    background-color: aquamarine;
+  }
