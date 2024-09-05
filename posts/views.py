@@ -107,11 +107,7 @@ def home(request):
 
 def comentarios_view(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-
     comentarios = post.comentarios.all()
-
-    for comentario in comentarios:
-        print(comentario.__dict__)
     return render(
         request, "comentarios_view.html", {"post": post, "comentarios": comentarios}
     )

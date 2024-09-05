@@ -7,14 +7,13 @@
   <p><strong>Likes:</strong> {{ post.likes }}</p>
 
   <h2>Comentarios</h2>
-  {{comentarios}} {% if comentarios %}
+  {% if comentarios %}
   <ul>
     {% for comentario in comentarios %}
-    <li>
-      <strong>{{ comentario.usuario.username }}:</strong> {{
-      comentario.fecha_comentario }}
-      <a>{{ comentario.contenido }}</a>
-    </li>
+
+    <strong>{{ comentario.usuario.username }}:</strong>
+    <p>{{ comentario.contenido }} ({{ comentario.fecha_comentario }})</p>
+
     {% endfor %}
   </ul>
   {% else %}
