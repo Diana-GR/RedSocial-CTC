@@ -1,0 +1,24 @@
+{% extends "index.html" %} {% block "content" %}
+<h1>Detalles de la publicación</h1>
+<div class="post">
+  <p><strong>Publicado por:</strong> {{ post.usuario.username }}</p>
+  <p>{{ post.contenido }}</p>
+  <p><strong>Fecha:</strong> {{ post.fecha_publicacion }}</p>
+  <p><strong>Likes:</strong> {{ post.likes }}</p>
+
+  <h2>Comentarios</h2>
+  {{comentarios}} {% if comentarios %}
+  <ul>
+    {% for comentario in comentarios %}
+    <li>
+      <strong>{{ comentario.usuario.username }}:</strong> {{
+      comentario.fecha_comentario }}
+      <a>{{ comentario.contenido }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No hay comentarios.</p>
+  {% endif %}
+</div>
+{%endblock "content" %}

@@ -1,33 +1,42 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url "logout" %}">Cerrar sesión</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url "signup" %}">Crear cuenta</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url "login" %}">Iniciar sesión</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
+{% extends "index.html" %} {% block "content" %}
+<h1>Publicaciones</h1>
+
+<!-- Formulario para crear publicaciones -->
+<h2>Crear Publicación</h2>
+<form method="POST" action="{% url 'home' %}">
+  {% csrf_token %}
+  <textarea
+    name="contenido"
+    placeholder="Escribe tu publicación aquí..."
+    required
+  ></textarea>
+  <button type="submit">Crear Publicación</button>
+</form>
+
+<!-- Mostrar todas las publicaciones -->
+{% for post in posts %}
+<div class="post">
+  <p><strong>{{ post.usuario.username }}</strong></p>
+  <p>{{ post.contenido }}</p>
+  <p>Likes: {{ post.likes }}</p>
+
+  <!-- solo si hay comentarios -->
+  {% if post.comentarios.count > 0 %}
+  <a href="{% url 'comentarios_view' post.id %}">Ver todos los comentarios</a>
+  {% endif %}
+
+  <!-- solo si hay publicaciones -->
+  <form method="POST" action="{% url 'home' %}">
+    {% csrf_token %}
+    <textarea
+      name="contenido_comentario"
+      placeholder="Escribe tu comentario aquí..."
+      required
+    ></textarea>
+    <input type="hidden" name="post_id" value="{{ post.id }}" />
+    <button type="submit">Dejar Comentario</button>
+  </form>
+</div>
+{% empty %}
+<p>No hay publicaciones.</p>
+{% endfor %}{% endblock "content" %}
