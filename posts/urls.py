@@ -9,6 +9,6 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("signup/", views.signup, name="signup"),
     path("home/", views.home, name="home"),
-    path("profile/edit", views.edit_profile, name="edit_profile"),
     path("comentarios/<int:post_id>/", views.comentarios_view, name="comentarios_view"),
+    path("edit_profile", views.edit_profile, name="edit_profile"),
 ]

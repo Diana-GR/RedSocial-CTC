@@ -33,3 +33,10 @@ class PostForm(forms.ModelForm):
         widget=forms.Textarea(attrs={"placeholder": "Escribe tu publicación aquí..."}),
         label="",
     )
+
+
+# Servira para editar algún usuario
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["biography"]
