@@ -39,4 +39,4 @@ class PostForm(forms.ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["biography"]
+        fields = ["biography", "avatar"]

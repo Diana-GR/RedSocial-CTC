@@ -1,5 +1,8 @@
 {% extends "index.html" %} {% block "content" %}
 <h1>Perfil de usuario</h1>
+<h2>Usuario: {{profile.user.username}}</h2>  <br>
+<p>{{profile.biography}}</p>  <br>
 <a href = "{% url "edit_profile" %}">Editar perfil<a/>
-{{user}}
+ 
+
 {% endblock "content" %}

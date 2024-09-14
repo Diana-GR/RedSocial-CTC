@@ -114,12 +114,23 @@ def comentarios_view(request, post_id):
 
 
 def profile(request):
-    return render(request, "profile.html")
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    return render(request, "profile.html", {"profile": profile})
 
 
 def edit_profile(request):
+    form = ProfileForm
+    profile = get_object_or_404(Profile, user=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.Files, instance=profile)
+        form.save()
+        return redirect("profile")
+    else:
+        form = ProfileForm(instance=profile)
+        return render(request, "edit_profile.html", {"form": form})
 
-    return render(request, "edit_profile.html")
+    return render(request, "edit_profile.html", {"form": form})
 
 
 def like_post(request, post_id):

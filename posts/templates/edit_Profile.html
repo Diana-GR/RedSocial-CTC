@@ -2,7 +2,9 @@
 {% block "content" %}
 
 <h1>Editar perfil<h1/>
-
-
-
+<form action = "{% url "edit_profile" %}" method = "POST">
+{%csrf_token%}
+{{form}}
+<button>Enviar</button>
+</form>
 {% endblock "content" %}
