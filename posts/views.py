@@ -129,7 +129,12 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    return render(request, template, {"profile": profile, "user": user})
+    sigue_al_usuario = request.user in user.seguidores.all()
+    return render(
+        request,
+        template,
+        {"profile": profile, "user": user, "sigue_al_usuario": sigue_al_usuario},
+    )
 
 
 # def profile(request):
@@ -194,6 +199,7 @@ def seguirUsers(request, user_id):
     perfil_a_seguir = get_object_or_404(User, id=user_id)
 
     if request.user == perfil_a_seguir:
+        print("El usuario está intentando seguirse a sí mismo.")
         return redirect("profile")  # No permitir que un usuario se siga a sí mismo
 
     amistad, created = Amistad.objects.get_or_create(
@@ -201,6 +207,7 @@ def seguirUsers(request, user_id):
     )
 
     if not created:
+        print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
         amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
 
     return redirect("profile_otros", user_id=user_id)
@@ -225,36 +232,6 @@ def seguirUser(request, user_id):
         print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
 
     return redirect("profile_otros", user_id=user_id)
-    # if not request.user.is_authenticated:
-    #     return redirect("login")  # Redirige al login si no está autenticado
-
-    # perfil_usuario = get_object_or_404(Profile, user_id=user_id)
-    # if request.user == perfil_usuario.user:
-    #     return HttpResponse("No puedes seguirte a ti mismo.", status=400)
-
-    # if request.user in perfil_usuario.user.amistades.all():
-    #     # Si el usuario ya sigue a este perfil, dejar de seguir
-    #     perfil_usuario.user.amistades.remove(request.user)
-    # else:
-    #     # Si el usuario no sigue a este perfil, seguir
-    #     perfil_usuario.user.amistades.add(request.user)
-    # if not request.user.is_authenticated:
-    #     return redirect("login")
-
-    # usuario_a_seguir = get_object_or_404(User, id=user_id)
-
-    # # Verifica si el usuario ya está siguiendo a este usuario
-    # if request.user != usuario_a_seguir:
-    #     amistad, created = Amistad.objects.get_or_create(
-    #         usuario=request.user, amigo=usuario_a_seguir
-    #     )
-    #     # En caso de que la amistad ya exista, no se crea una nueva
-    #     if not created:
-    #         amistad.delete()  # Si ya existe, se elimina la relación
-
-    return redirect(
-        request.META.get("HTTP_REFERER", "home")
-    )  # modificar a donde redirigir //  redirect("home")
 
 
 def buscar(request):
