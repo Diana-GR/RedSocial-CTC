@@ -6,13 +6,14 @@
 
     <!-- Formulario para crear publicaciones -->
     <div class="create-post-container">
-        <form method="POST" action="{% url 'home' %}">
+        <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <textarea class="post-textarea"
                       name="contenido"
                       placeholder="¿Qué estás pensando?"
                       required
             ></textarea>
+            <input type="file" name="image" accept="image/*">  
             <button type="submit" class="btn-create-post">Publicar</button>
         </form>
     </div>
@@ -26,14 +27,18 @@
                 <p class="post-username">{{ post.usuario.username }}</p>
                 <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>
             </div>
-        </div>
-        <p class="post-content">{{ post.contenido }}</p>
+        
+    </div>
+    <p class="post-content">{{ post.contenido }}</p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto;">
+     {% endif %}
 
         <!-- Botón para dar like a la publicación -->
         <form method="POST" action="{% url 'like_post' post.id %}">
             {% csrf_token %}
             <button type="submit" class="btn-like">
-                {% if user in post.likes.all %} Me gusta quitado {% else %} Me gusta {% endif %}
+                {% if user in post.likes.all %} Quitar like {% else %} Me gusta {% endif %}
             </button>
         </form>
 

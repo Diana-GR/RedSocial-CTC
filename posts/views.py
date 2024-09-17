@@ -88,9 +88,10 @@ def home(request):
     if request.method == "POST":
         if "contenido" in request.POST:
             contenido = request.POST.get("contenido")
-            if contenido:
+            imagen = request.FILES.get("imagen")
+            if contenido or imagen:
                 nuevo_post = Post.objects.create(
-                    usuario=request.user, contenido=contenido
+                    usuario=request.user, contenido=contenido, image=imagen
                 )
                 nuevo_post.save()
                 return redirect("home")
@@ -275,38 +276,3 @@ def buscarUser(request):
         Q(username__icontains=query) | Q(profile__biography__icontains=query)
     ).values("id", "username")
     return JsonResponse({"results": list(users)})
-
-
-def create_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            return redirect("home")
-    else:
-        form = PostForm()
-    return render(request, "create_post.html", {"form": form})
-
-
-@login_required
-def edit_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id, user=request.user)
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    else:
-        form = PostForm(instance=post)
-    return render(request, "edit_post.html", {"form": form})
-
-
-@login_required
-def delete_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id, user=request.user)
-    if request.method == "POST":
-        post.delete()
-        return redirect("home")
-    return render(request, "confirm_delete.html", {"post": post})

@@ -18,5 +18,4 @@ urlpatterns = [
     path("like_comment/<int:comment_id>/", views.like_comment, name="like_comment"),
     path("buscar/", views.buscarUser, name="buscarUser"),
     path("seguir/<int:user_id>/", views.seguirUser, name="seguirUser"),
-    path("create_post/", views.create_post, name="crear_post"),
 ]
