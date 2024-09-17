@@ -8,6 +8,7 @@ from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
+from .forms import PostForm
 
 
 def index(request):
@@ -254,3 +255,16 @@ def buscarUser(request):
         Q(username__icontains=query) | Q(profile__biography__icontains=query)
     ).values("id", "username")
     return JsonResponse({"results": list(users)})
+
+
+def create_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.Files)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect("home")
+    else:
+        form = PostForm()
+    return render(request, "create_post.html", {"form": form})
