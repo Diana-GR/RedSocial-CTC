@@ -6,7 +6,10 @@ urlpatterns = [
     path("login/", views.session, name="login"),
     path("logout/", views.delete_session, name="logout"),
     path("about-us/", views.aboutus, name="about-us"),
-    path("profile/", views.profile, name="profile"),
+    path("profile/", views.profile, name="profile"),  # Perfil del usuario autenticado
+    path(
+        "profile/<int:user_id>/", views.profile, name="profile_otros"
+    ),  # Perfil de otros usuarios
     path("signup/", views.signup, name="signup"),
     path("home/", views.home, name="home"),
     path("comentarios/<int:post_id>/", views.comentarios_view, name="comentarios_view"),
