@@ -4,7 +4,7 @@
 <p>{{profile.biography}}</p>  <br>
 
 {%if profile.avatar%}
-<img src= "{{profile.avatar.url}}" alt = "Avatar">
+<img class = "rounded-circle"  width = "100px" height = "100px" src= "{{profile.avatar.url}}" alt = "Avatar">
 {%else%}
 <p>No avatar uploades.<p/>
     {%endif%}
