@@ -27,6 +27,9 @@ class Profile(models.Model):
     biography = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
 
+    def __str__(self):
+        return self.user.username
+
 
 class Post(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
