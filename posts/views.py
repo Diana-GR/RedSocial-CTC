@@ -1,10 +1,11 @@
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User  # Utilizamos el modelo integrado User
 from django.contrib.auth import login, authenticate, logout
-from .models import Profile, Post, Comentario
+from .models import Profile, Post, Comentario, Amistad
 from .forms import ProfileForm
+from django.db.models import Q
 
 
 def index(request):
@@ -139,16 +140,61 @@ def like_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
     # Verificar si el usuario ya ha dado like a esta publicación
-    if request.user in post.reacciones.all():
-        post.reacciones.remove(request.user)
-        post.likes -= 1
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
     else:
-        post.reacciones.add(request.user)
-        post.likes += 1
+        post.likes.add(request.user)
 
     post.save()
     return redirect("home")
 
 
+def like_comment(request, comment_id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    comentario = get_object_or_404(Comentario, id=comment_id)
+    post_id = comentario.post.id
+
+    # Verificar si el usuario ya ha dado like a este comentario
+    if request.user in comentario.likes.all():
+        comentario.likes.remove(request.user)
+    else:
+        comentario.likes.add(request.user)
+
+    comentario.save()
+    return redirect("comentarios_view", post_id=post_id)
+
+
 def aboutus(request):
     return render(request, "about-us.html")
+
+
+def seguirUser(request, user_id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    usuario_a_seguir = get_object_or_404(User, id=user_id)
+
+    # Verifica si el usuario ya está siguiendo a este usuario
+    if request.user != usuario_a_seguir:
+        amistad, created = Amistad.objects.get_or_create(
+            usuario=request.user, amigo=usuario_a_seguir
+        )
+        # En caso de que la amistad ya exista, no se crea una nueva
+        if not created:
+            amistad.delete()  # Si ya existe, se elimina la relación
+
+    return redirect("home")  # modificar a donde redirigir
+
+
+def buscarUser(request):
+    query = request.GET.get("q")
+    if query:
+        users = User.objects.filter(
+            Q(username__icontains=query) | Q(profile__biography__icontains=query)
+        )
+    else:
+        users = User.objects.none()
+
+    return render(request, "buscador.html", {"users": users})

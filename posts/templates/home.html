@@ -18,7 +18,15 @@
 <div class="post">
   <p><strong>{{ post.usuario.username }}</strong></p>
   <p>{{ post.contenido }}</p>
-  <p>Likes: {{ post.likes }}</p>
+  <p>Likes: {{ post.likes.count }}</p>
+
+  <!-- Botón para dar like a la publicación (MODIFICAR) -->
+  <form method="POST" action="{% url 'like_post' post.id %}">
+    {% csrf_token %}
+    <button type="submit">
+      {% if user in post.likes.all %} Quitar like {% else %} Like {% endif %}
+    </button>
+  </form>
 
   <!-- solo si hay comentarios -->
   {% if post.comentarios.count > 0 %}

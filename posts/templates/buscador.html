@@ -1,0 +1,22 @@
+{% extends "index.html" %} {% block content %}
+<h2>Buscar Usuarios</h2>
+<form method="GET" action="{% url 'buscarUser' %}">
+  <input type="text" name="q" placeholder="Buscar usuarios..." required />
+  <button type="submit">Buscar</button>
+</form>
+
+<h3>Resultados:</h3>
+<ul>
+  {% for user in users %}
+  <li>
+    {{ user.username }}
+    <a href="{% url 'seguirUser' user.id %}">
+      {% if request.user in user.seguidores.all %} Dejar de seguir {% else %}
+      Seguir {% endif %}
+    </a>
+  </li>
+  {% empty %}
+  <li>No se encontraron usuarios.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

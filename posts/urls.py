@@ -11,4 +11,8 @@ urlpatterns = [
     path("home/", views.home, name="home"),
     path("comentarios/<int:post_id>/", views.comentarios_view, name="comentarios_view"),
     path("edit_profile", views.edit_profile, name="edit_profile"),
+    path("like_post/<int:post_id>/", views.like_post, name="like_post"),
+    path("like_comment/<int:comment_id>/", views.like_comment, name="like_comment"),
+    path("buscar/", views.buscarUser, name="buscarUser"),
+    path("seguir/<int:user_id>/", views.seguirUser, name="seguirUser"),
 ]

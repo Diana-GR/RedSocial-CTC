@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User  # Django ya lo tiene implementado
 
+User.add_to_class(
+    "seguir",
+    models.ManyToManyField(
+        "self", symmetrical=False, related_name="seguidores", blank=True
+    ),
+)
+
 
 # Create your models here.
 class Task(models.Model):
@@ -25,11 +32,12 @@ class Post(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)  # Campo para contar likes
-    reacciones = models.ManyToManyField(User, related_name="reacciones", blank=True)
+    likes = models.IntegerField(default=0)
+    # reacciones = models.ManyToManyField(User, related_name="reacciones", blank=True) - {self.contenido[:20]}
+    likes = models.ManyToManyField(User, related_name="likes_publicaciones", blank=True)
 
     def __str__(self):
-        return f"Post de {self.usuario.username} - {self.contenido[:20]}"
+        return f"Post de {self.usuario.username}"
 
 
 class Comentario(models.Model):
@@ -37,6 +45,7 @@ class Comentario(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     contenido = models.TextField()
     fecha_comentario = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name="comentarios_likes", blank=True)
 
     def __str__(self):
         return f"Comentario de {self.usuario.username} en {self.post.id}"
@@ -60,5 +69,13 @@ class Amistad(models.Model):
     amigo = models.ForeignKey(User, on_delete=models.CASCADE, related_name="amigos")
     fecha_amistad = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ("usuario", "amigo")  # Asegura que la relación sea única
+        constraints = [
+            models.UniqueConstraint(
+                fields=["usuario", "amigo"], name="unique_friendship"
+            ),
+        ]
+
     def __str__(self):
-        return f"{self.usuario.nombre} es amigo de {self.amigo.nombre}"
+        return f"{self.usuario.username} es amigo de {self.amigo.username}"
