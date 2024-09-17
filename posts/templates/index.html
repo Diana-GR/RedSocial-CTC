@@ -12,7 +12,7 @@
     <header>   
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">QuikTalk</a>
+    <a class="navbar-brand" href="{%url "home"%}">QuikTalk</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,10 +29,10 @@
             <a class="nav-link" href="{% url "logout" %}">Cerrar sesión</a>
           </li>
           <li class="nav-item">
-          <div class="search-bar">
-            <input type="text" placeholder="Buscar...">
-            <button>Buscar</button>
-        </div>
+            <div class="search-bar">
+              <input id="buscar-input" type="text" placeholder="Buscar usuario..." autocomplete="off">
+              <div id="buscar-resultados" class="dropdown-busqueda"></div>
+            </div>
       </li>
     </div>
         {% else %}
@@ -71,14 +71,13 @@
         <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
       </div>
     </div>
-    {% comment %} <img src="{% static "fondo.jpg" %}" alt=""/> {% endcomment %}
     
     {% endblock "content" %}
     </main>
 
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <li class="nav-item"><a href="{%url "home"%}" class="nav-link px-2 text-body-secondary">Home</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About Us</a></li>
         </ul>

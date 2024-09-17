@@ -1,7 +1,5 @@
-<!-- ESTA VISTA ES PARA LOS BOTONES DE SEGUIR Y DEJAR DE SEGUIR A OTROS USUARIOS -->
 {% extends "index.html" %} {% block "content" %}
-<h1>Perfil de usuario</h1>
-<h2>Usuario: {{profile.user.username}}</h2>
+<h1>Perfil de {{ user.username }}</h1>
 <br />
 <p>{{profile.biography}}</p>
 <br />
@@ -21,7 +19,7 @@
 
 <br />
 {%if profile.avatar%}
-<img src= "{{profile.avatar.url}}" alt = "Avatar">
+<img src="{{profile.avatar.url}}" alt="Avatar" />
 {%else%}
 <p>No avatar uploades.</p>
 {%endif%} {% endblock%}

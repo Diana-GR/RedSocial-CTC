@@ -122,12 +122,14 @@ def profile(request, user_id=None):
     if user_id:
         # Si se proporciona un user_id, obtenemos el perfil del usuario correspondiente
         user = get_object_or_404(User, id=user_id)
+        template = "profile2.html"
     else:
         # Si no se proporciona un user_id, usamos el perfil del usuario autenticado
         user = request.user
+        template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    return render(request, "profile.html", {"profile": profile, "user": user})
+    return render(request, template, {"profile": profile, "user": user})
 
 
 # def profile(request):
@@ -188,7 +190,7 @@ def aboutus(request):
 
 
 @login_required
-def seguirUser(request, user_id):
+def seguirUsers(request, user_id):
     perfil_a_seguir = get_object_or_404(User, id=user_id)
 
     if request.user == perfil_a_seguir:
@@ -204,20 +206,38 @@ def seguirUser(request, user_id):
     return redirect("profile_otros", user_id=user_id)
 
 
-def seguirUsers(request, user_id):
-    if not request.user.is_authenticated:
-        return redirect("login")  # Redirige al login si no está autenticado
+@login_required
+def seguirUser(request, user_id):
+    perfil_a_seguir = get_object_or_404(User, id=user_id)
 
-    perfil_usuario = get_object_or_404(Profile, user_id=user_id)
-    if request.user == perfil_usuario.user:
-        return HttpResponse("No puedes seguirte a ti mismo.", status=400)
+    if request.user == perfil_a_seguir:
+        print("El usuario está intentando seguirse a sí mismo.")
+        return redirect("profile")  # No permitir que un usuario se siga a sí mismo
 
-    if request.user in perfil_usuario.user.amistades.all():
-        # Si el usuario ya sigue a este perfil, dejar de seguir
-        perfil_usuario.user.amistades.remove(request.user)
+    amistad, created = Amistad.objects.get_or_create(
+        usuario=request.user, amigo=perfil_a_seguir
+    )
+
+    if created:
+        print(f"{request.user.username} empezó a seguir a {perfil_a_seguir.username}.")
     else:
-        # Si el usuario no sigue a este perfil, seguir
-        perfil_usuario.user.amistades.add(request.user)
+        amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
+        print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
+
+    return redirect("profile_otros", user_id=user_id)
+    # if not request.user.is_authenticated:
+    #     return redirect("login")  # Redirige al login si no está autenticado
+
+    # perfil_usuario = get_object_or_404(Profile, user_id=user_id)
+    # if request.user == perfil_usuario.user:
+    #     return HttpResponse("No puedes seguirte a ti mismo.", status=400)
+
+    # if request.user in perfil_usuario.user.amistades.all():
+    #     # Si el usuario ya sigue a este perfil, dejar de seguir
+    #     perfil_usuario.user.amistades.remove(request.user)
+    # else:
+    #     # Si el usuario no sigue a este perfil, seguir
+    #     perfil_usuario.user.amistades.add(request.user)
     # if not request.user.is_authenticated:
     #     return redirect("login")
 
