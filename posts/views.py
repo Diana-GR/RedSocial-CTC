@@ -1,4 +1,4 @@
-# from django.http import HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User  # Utilizamos el modelo integrado User
@@ -7,6 +7,7 @@ from .models import Profile, Post, Comentario, Amistad
 from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 def index(request):
@@ -116,10 +117,22 @@ def comentarios_view(request, post_id):
 
 
 @login_required
-def profile(request):
-    user = request.user
+def profile(request, user_id=None):
+    if user_id:
+        # Si se proporciona un user_id, obtenemos el perfil del usuario correspondiente
+        user = get_object_or_404(User, id=user_id)
+    else:
+        # Si no se proporciona un user_id, usamos el perfil del usuario autenticado
+        user = request.user
+
     profile, created = Profile.objects.get_or_create(user=user)
-    return render(request, "profile.html", {"profile": profile})
+    return render(request, "profile.html", {"profile": profile, "user": user})
+
+
+# def profile(request):
+#     user = request.user
+#     profile, created = Profile.objects.get_or_create(user=user)
+#     return render(request, "profile.html", {"profile": profile})
 
 
 @login_required
@@ -173,25 +186,57 @@ def aboutus(request):
     return render(request, "about-us.html")
 
 
+@login_required
 def seguirUser(request, user_id):
+    perfil_a_seguir = get_object_or_404(User, id=user_id)
+
+    if request.user == perfil_a_seguir:
+        return redirect("profile")  # No permitir que un usuario se siga a sí mismo
+
+    amistad, created = Amistad.objects.get_or_create(
+        usuario=request.user, amigo=perfil_a_seguir
+    )
+
+    if not created:
+        amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
+
+    return redirect("profile_otros", user_id=user_id)
+
+
+def seguirUsers(request, user_id):
     if not request.user.is_authenticated:
-        return redirect("login")
+        return redirect("login")  # Redirige al login si no está autenticado
 
-    usuario_a_seguir = get_object_or_404(User, id=user_id)
+    perfil_usuario = get_object_or_404(Profile, user_id=user_id)
+    if request.user == perfil_usuario.user:
+        return HttpResponse("No puedes seguirte a ti mismo.", status=400)
 
-    # Verifica si el usuario ya está siguiendo a este usuario
-    if request.user != usuario_a_seguir:
-        amistad, created = Amistad.objects.get_or_create(
-            usuario=request.user, amigo=usuario_a_seguir
-        )
-        # En caso de que la amistad ya exista, no se crea una nueva
-        if not created:
-            amistad.delete()  # Si ya existe, se elimina la relación
+    if request.user in perfil_usuario.user.amistades.all():
+        # Si el usuario ya sigue a este perfil, dejar de seguir
+        perfil_usuario.user.amistades.remove(request.user)
+    else:
+        # Si el usuario no sigue a este perfil, seguir
+        perfil_usuario.user.amistades.add(request.user)
+    # if not request.user.is_authenticated:
+    #     return redirect("login")
 
-    return redirect("home")  # modificar a donde redirigir
+    # usuario_a_seguir = get_object_or_404(User, id=user_id)
+
+    # # Verifica si el usuario ya está siguiendo a este usuario
+    # if request.user != usuario_a_seguir:
+    #     amistad, created = Amistad.objects.get_or_create(
+    #         usuario=request.user, amigo=usuario_a_seguir
+    #     )
+    #     # En caso de que la amistad ya exista, no se crea una nueva
+    #     if not created:
+    #         amistad.delete()  # Si ya existe, se elimina la relación
+
+    return redirect(
+        request.META.get("HTTP_REFERER", "home")
+    )  # modificar a donde redirigir //  redirect("home")
 
 
-def buscarUser(request):
+def buscar(request):
     query = request.GET.get("q")
     if query:
         users = User.objects.filter(
@@ -201,3 +246,11 @@ def buscarUser(request):
         users = User.objects.none()
 
     return render(request, "buscador.html", {"users": users})
+
+
+def buscarUser(request):
+    query = request.GET.get("q", "")
+    users = User.objects.filter(
+        Q(username__icontains=query) | Q(profile__biography__icontains=query)
+    ).values("id", "username")
+    return JsonResponse({"results": list(users)})
