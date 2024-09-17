@@ -1,51 +1,62 @@
-{% extends "index.html" %} {% block "content" %}
-<h1>Publicaciones</h1>
+{% extends "index.html" %}
 
-<!-- Formulario para crear publicaciones -->
-<h2>Crear Publicación</h2>
-<form method="POST" action="{% url 'home' %}">
-  {% csrf_token %}
-  <textarea
-    name="contenido"
-    placeholder="Escribe tu publicación aquí..."
-    required
-  ></textarea>
-  <button type="submit">Crear Publicación</button>
-  <a href="{% url "crear_post" %}">Crear Publicación2</a> 
-</form>
+{% block "content" %}
+<div class="publications-container">
+    <h1 class="title">PUBLICACIONES</h1>
 
-<!-- Mostrar todas las publicaciones -->
-{% for post in posts %}
-<div class="post">
-  <p><strong>{{ post.usuario.username }}</strong></p>
-  <p>{{ post.contenido }}</p>
-  <p>Likes: {{ post.likes.count }}</p>
+    <!-- Formulario para crear publicaciones -->
+    <div class="create-post-container">
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <textarea class="post-textarea"
+                      name="contenido"
+                      placeholder="¿Qué estás pensando?"
+                      required
+            ></textarea>
+            <button type="submit" class="btn-create-post">Publicar</button>
+        </form>
+    </div>
 
-  <!-- Botón para dar like a la publicación (MODIFICAR) -->
-  <form method="POST" action="{% url 'like_post' post.id %}">
-    {% csrf_token %}
-    <button type="submit">
-      {% if user in post.likes.all %} Quitar like {% else %} Like {% endif %}
-    </button>
-  </form>
+    <!-- Mostrar todas las publicaciones -->
+    {% for post in posts %}
+    <div class="post">
+        <div class="post-header">
+            <img src="{{ post.usuario.profile_picture.url }}" alt="Profile" class="profile-pic">
+            <div class="post-info">
+                <p class="post-username">{{ post.usuario.username }}</p>
+                <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>
+            </div>
+        </div>
+        <p class="post-content">{{ post.contenido }}</p>
 
-  <!-- solo si hay comentarios -->
-  {% if post.comentarios.count > 0 %}
-  <a href="{% url 'comentarios_view' post.id %}">Ver todos los comentarios</a>
-  {% endif %}
+        <!-- Botón para dar like a la publicación -->
+        <form method="POST" action="{% url 'like_post' post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-like">
+                {% if user in post.likes.all %} Me gusta quitado {% else %} Me gusta {% endif %}
+            </button>
+        </form>
 
-  <!-- solo si hay publicaciones -->
-  <form method="POST" action="{% url 'home' %}">
-    {% csrf_token %}
-    <textarea
-      name="contenido_comentario"
-      placeholder="Escribe tu comentario aquí..."
-      required
-    ></textarea>
-    <input type="hidden" name="post_id" value="{{ post.id }}" />
-    <button type="submit">Dejar Comentario</button>
-  </form>
+        <p class="post-likes">{{ post.likes.count }} Me gusta</p>
+
+        <!-- Comentarios -->
+        {% if post.comentarios.count > 0 %}
+        <a href="{% url 'comentarios_view' post.id %}" class="view-comments-link">Ver todos los comentarios</a>
+        {% endif %}
+
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <textarea class="comment-textarea"
+                      name="contenido_comentario"
+                      placeholder="Escribe un comentario..."
+                      required
+            ></textarea>
+            <input type="hidden" name="post_id" value="{{ post.id }}"/>
+            <button type="submit" class="btn-comment">Comentar</button>
+        </form>
+    </div>
+    {% empty %}
+    <p>No hay publicaciones.</p>
+    {% endfor %}
 </div>
-{% empty %}
-<p>No hay publicaciones.</p>
-{% endfor %}{% endblock "content" %}
+{% endblock "content" %}

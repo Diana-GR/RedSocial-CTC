@@ -1,30 +1,56 @@
-{% extends "index.html" %} {% block "content" %}
-<h1>Detalles de la publicación</h1>
-<div class="post">
-  <p><strong>Publicado por:</strong> {{ post.usuario.username }}</p>
-  <p>{{ post.contenido }}</p>
-  <p><strong>Fecha:</strong> {{ post.fecha_publicacion }}</p>
-  <p><strong>Likes:</strong> {{ post.likes.count }}</p>
+{% extends "index.html" %}
 
-  <h2>Comentarios</h2>
-  {% if comentarios %}
-  <ul>
-    {% for comentario in comentarios %}
-    <strong>{{ comentario.usuario.username }}:</strong>
-    <p>{{ comentario.contenido }} ({{ comentario.fecha_comentario }})</p>
-    <!-- Botón para dar like a la publicación (MODIFICAR) -->
-    <form method="POST" action="{% url 'like_comment' comentario.id %}">
-      {% csrf_token %}
-      <button type="submit">
-        {% if user in comentario.likes.all %} Quitar like {% else %} Like
-        {%endif %} {% comment %} ({{ comentario.likes.count }}) es el (1) dentro
-        del boton {% endcomment %}
-      </button>
-    </form>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>No hay comentarios.</p>
-  {% endif %}
+{% block "content" %}
+<div class="post-detail-container">
+    <div class="post-header">
+        <img src="{{ post.usuario.profile_image.url }}" alt="Avatar" class="avatar">
+        <div class="post-info">
+            <p><strong>{{ post.usuario.username }}</strong></p>
+            <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
+        </div>
+    </div>
+
+    <div class="post-content">
+        <p>{{ post.contenido }}</p>
+    </div>
+
+    <div class="post-actions">
+        <p>{{ post.likes.count }} Me gusta</p>
+        <form method="POST" action="{% url 'like_post' post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-like-post">
+                {% if user in post.likes.all %} Quitar me gusta {% else %} Me gusta {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <div class="comments-section">
+        <h2>Comentarios</h2>
+
+        {% if comentarios %}
+        <ul class="comments-list">
+            {% for comentario in comentarios %}
+            <li class="comment">
+                <div class="comment-header">
+                    <img src="{{ comentario.usuario.profile_image.url }}" alt="Avatar" class="avatar">
+                    <div class="comment-info">
+                        <p><strong>{{ comentario.usuario.username }}</strong></p>
+                        <p>{{ comentario.fecha_comentario|date:"d M Y H:i" }}</p>
+                    </div>
+                </div>
+                <p class="comment-content">{{ comentario.contenido }}</p>
+                <form method="POST" action="{% url 'like_comment' comentario.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-like-comment">
+                        {% if user in comentario.likes.all %} Quitar me gusta {% else %} Me gusta {% endif %}
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No hay comentarios.</p>
+        {% endif %}
+    </div>
 </div>
-{%endblock "content" %}
+{% endblock "content" %}

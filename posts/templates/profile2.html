@@ -1,27 +1,38 @@
-<!-- ESTA VISTA ES PARA LOS BOTONES DE SEGUIR Y DEJAR DE SEGUIR A OTROS USUARIOS -->
-{% extends "index.html" %} {% block "content" %}
-<h1>Perfil de usuario</h1>
-<h2>Usuario: {{profile.user.username}}</h2>
-<br />
-<p>{{profile.biography}}</p>
-<br />
-{% if request.user in profile.user.amigos.all %}
-<!-- Si el usuario autenticado ya sigue al perfil -->
-<form method="POST" action="{% url 'seguirUser' profile.user.id %}">
-  {% csrf_token %}
-  <button type="submit">Dejar de seguir</button>
-</form>
-{% else %}
-<!-- Si el usuario autenticado no sigue al perfil -->
-<form method="POST" action="{% url 'seguirUser' profile.user.id %}">
-  {% csrf_token %}
-  <button type="submit">Seguir</button>
-</form>
-{% endif %}
+<!-- EDITAR PERFIL -->
+{% extends "index.html" %}
 
-<br />
-{%if profile.avatar%}
-<img src= "{{profile.avatar.url}}" alt = "Avatar">
-{%else%}
-<p>No avatar uploades.</p>
-{%endif%} {% endblock%}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit-profile.css' %}">
+
+<div class="edit-profile-container">
+  <h1>Editar perfil</h1>
+  
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="biography">Biografía:</label>
+      <textarea id="biography" name="biography" rows="4">{{ profile.biography }}</textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="avatar">Avatar actual:</label>
+      {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" alt="Avatar actual" class="avatar-img">
+        <a href="#" class="clear-avatar">Clear</a>
+      {% else %}
+        <p>No tienes un avatar actual.</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="avatar">Cambiar avatar:</label>
+      <input type="file" id="avatar" name="avatar">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn-submit">Guardar cambios</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
