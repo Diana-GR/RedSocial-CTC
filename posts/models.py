@@ -42,7 +42,7 @@ class Post(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     contenido = models.TextField()
-    image = models.ImageField(upload_to="posts_images/", blank=True, null=True)
+    image = models.ImageField(upload_to="media/posts_images/", blank=True, null=True)
     likes = models.IntegerField(default=0)
     # reacciones = models.ManyToManyField(User, related_name="reacciones", blank=True) - {self.contenido[:20]}
     likes = models.ManyToManyField(User, related_name="likes_publicaciones", blank=True)
