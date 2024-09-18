@@ -126,33 +126,24 @@ def comentarios_view(request, post_id):
 @login_required
 def profile(request, user_id=None):
     if user_id:
-        # Si se proporciona un user_id, obtenemos el perfil del usuario correspondiente
+        # Si se proporciona un user_id, obtenemos el perfil del otro usuario
         user = get_object_or_404(User, id=user_id)
         template = "profile2.html"
     else:
-        # Si no se proporciona un user_id, usamos el perfil del usuario autenticado
+        # Si no hay id, usamos nuestro perfil
         user = request.user
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    # sigue_al_usuario = request.user in user.seguidores.all()
-    # print(sigue_al_usuario) "sigue_al_usuario": sigue_al_usuario
+    sigue_al_usuario = request.user in user.seguir.all()
+    print(sigue_al_usuario)
     print(request.user)
     print(user)
     return render(
         request,
         template,
-        {
-            "profile": profile,
-            "user": user,
-        },
+        {"profile": profile, "user": user, "sigue_al_usuario": sigue_al_usuario},
     )
-
-
-# def profile(request):
-#     user = request.user
-#     profile, created = Profile.objects.get_or_create(user=user)
-#     return render(request, "profile.html", {"profile": profile})
 
 
 @login_required
@@ -207,30 +198,11 @@ def aboutus(request):
 
 
 @login_required
-def seguirUsers(request, user_id):
-    perfil_a_seguir = get_object_or_404(User, id=user_id)
-
-    if request.user == perfil_a_seguir:
-        print("El usuario está intentando seguirse a sí mismo.")
-        return redirect("profile")  # No permitir que un usuario se siga a sí mismo
-
-    amistad, created = Amistad.objects.get_or_create(
-        usuario=request.user, amigo=perfil_a_seguir
-    )
-
-    if not created:
-        print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
-        amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
-
-    return redirect("profile_otros", user_id=user_id)
-
-
-@login_required
 def seguirUser(request, user_id):
     perfil_a_seguir = get_object_or_404(User, id=user_id)
 
     if request.user == perfil_a_seguir:
-        print("El usuario está intentando seguirse a sí mismo.")
+        print("Estás intentando seguirte a tí mismo.")
         return redirect("profile")  # No permite que un usuario se siga a sí mismo
 
     amistad, created = Amistad.objects.get_or_create(

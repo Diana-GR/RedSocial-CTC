@@ -29,35 +29,23 @@
   </div>
 
   <div class="profile-actions">
-    {% if request.user in profile.user.amigos.all %}
+    {% if sigue_al_usuario %}
     <!-- Si ya sigues al perfil -->
-    <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
+    <form method="POST" action="{% url 'seguirUser' user.id %}">
       {% csrf_token %}
-      <button type="submit">Dejar de seguir</button>
+      <button type="submit" class="btn">
+        <span class="material-symbols-outlined">favorite</span> Dejar de seguir
+      </button>
     </form>
     {% else %}
     <!-- Si no sigues al perfil -->
-    <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
+    <form method="POST" action="{% url 'seguirUser' user.id %}">
       {% csrf_token %}
-      <button type="submit">Seguir</button>
+      <button type="submit" class="btn">
+        <span class="material-symbols-outlined">favorite_border</span> Seguir
+      </button>
     </form>
     {% endif %}
   </div>
 </div>
-{% endblock%} {% comment %} {% if sigue_al_usuario %}
-<!-- Si ya sigues al perfil -->
-<form method="POST" action="{% url 'seguirUser' profile.user.id %}">
-  {% csrf_token %}
-  <button type="submit" class="btn">
-    <span class="material-symbols-outlined">favorite</span> Dejar de seguir
-  </button>
-</form>
-{% else %}
-<!-- Si no sigues al perfil -->
-<form method="POST" action="{% url 'seguirUser' profile.user.id %}">
-  {% csrf_token %}
-  <button type="submit" class="btn">
-    <span class="material-symbols-outlined">favorite_border</span> Seguir
-  </button>
-</form>
-{% endif %} {% endcomment %}
+{% endblock%}
