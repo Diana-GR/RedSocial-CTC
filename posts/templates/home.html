@@ -1,67 +1,80 @@
-{% extends "index.html" %}
-
-{% block "content" %}
+{% extends "index.html" %} {% block "content" %}
 <div class="publications-container">
-    <h1 class="title">PUBLICACIONES</h1>
+  <h1 class="title">PUBLICACIONES</h1>
 
-    <!-- Formulario para crear publicaciones -->
-    <div class="create-post-container">
-        <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <textarea class="post-textarea"
-                      name="contenido"
-                      placeholder="¿Qué estás pensando?"
-                      required
-            ></textarea>
-            <input type="file" name="image" accept="image/*">  
-            <button type="submit" class="btn-create-post">Publicar</button>
-        </form>
-    </div>
+  <!-- Formulario para crear publicaciones -->
+  <div class="create-post-container">
+    <form method="POST" action="{% url 'home' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <textarea
+        class="post-textarea"
+        name="contenido"
+        placeholder="¿Qué estás pensando?"
+        required
+      ></textarea>
+      <input type="file" name="image" accept="image/*" />
+      <button type="submit" class="btn-create-post">Publicar</button>
+    </form>
+  </div>
 
-    <!-- Mostrar todas las publicaciones -->
-    {% for post in posts %}
-    <div class="post">
-        <div class="post-header">
-            <img src="{{ post.usuario.profile_picture.url }}" alt="Profile" class="profile-pic">
-            <div class="post-info">
-                <p class="post-username">{{ post.usuario.username }}</p>
-                <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>
-            </div>
-        
+  <!-- Mostrar todas las publicaciones -->
+  {% for post in posts %}
+  <div class="post">
+    <div class="post-header">
+      <img
+        src="{{ post.usuario.profile_picture.url }}"
+        alt="Profile"
+        class="profile-pic"
+      />
+      <div class="post-info">
+        <p class="post-username">{{ post.usuario.username }}</p>
+        <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>
+      </div>
     </div>
     <p class="post-content">{{ post.contenido }}</p>
     {% if post.image %}
-        <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto;">
-     {% endif %}
+    <img
+      src="{{ post.image.url }}"
+      alt="Imagen de la publicación"
+      style="max-width: 100%; height: auto"
+    />
+    {% endif %}
 
-        <!-- Botón para dar like a la publicación -->
-        <form method="POST" action="{% url 'like_post' post.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn-like">
-                {% if user in post.likes.all %} Quitar like {% else %} Me gusta {% endif %}
-            </button>
-        </form>
+    <!-- Botón para dar like a la publicación -->
+    <form method="POST" action="{% url 'like_post' post.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-like">
+        {% if user in post.likes.all %}
+        <span class="material-symbols-outlined">favorite</span> Quitar like
+        {%else %}
+        <span class="material-symbols-outlined">favorite_border</span> Like
+        {%endif%}
+      </button>
+    </form>
 
-        <p class="post-likes">{{ post.likes.count }} Me gusta</p>
+    <p class="post-likes">{{ post.likes.count }} Me gusta</p>
 
-        <!-- Comentarios -->
-        {% if post.comentarios.count > 0 %}
-        <a href="{% url 'comentarios_view' post.id %}" class="view-comments-link">Ver todos los comentarios</a>
-        {% endif %}
+    <!-- Comentarios -->
+    {% if post.comentarios.count > 0 %}
+    <a href="{% url 'comentarios_view' post.id %}" class="view-comments-link"
+      >Ver todos los comentarios</a
+    >
+    {% endif %}
 
-        <form method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-            <textarea class="comment-textarea"
-                      name="contenido_comentario"
-                      placeholder="Escribe un comentario..."
-                      required
-            ></textarea>
-            <input type="hidden" name="post_id" value="{{ post.id }}"/>
-            <button type="submit" class="btn-comment">Comentar</button>
-        </form>
-    </div>
-    {% empty %}
-    <p>No hay publicaciones.</p>
-    {% endfor %}
+    <form method="POST" action="{% url 'home' %}">
+      {% csrf_token %}
+      <textarea
+        class="comment-textarea"
+        name="contenido_comentario"
+        placeholder="Escribe un comentario..."
+        required
+      ></textarea>
+      <input type="hidden" name="post_id" value="{{ post.id }}" />
+      <button type="submit" class="btn-comment">Comentar</button>
+    </form>
+  </div>
+  {% empty %}
+  <p>No hay publicaciones.</p>
+  {% endfor %}
 </div>
 {% endblock "content" %}
