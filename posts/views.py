@@ -84,11 +84,16 @@ def delete_session(request):
 def home(request):
     if not request.user.is_authenticated:
         return redirect("login")
+
     # Si se está creando un nuevo post
+
     if request.method == "POST":
+        print(request.POST)
         if "contenido" in request.POST:
             contenido = request.POST.get("contenido")
-            imagen = request.FILES.get("imagen")
+            print(contenido)
+            imagen = request.FILES.get("image")
+            print(imagen)
             if contenido or imagen:
                 nuevo_post = Post.objects.create(
                     usuario=request.user, contenido=contenido, image=imagen
