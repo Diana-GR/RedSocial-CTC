@@ -135,7 +135,8 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    return render(request, template, {"profile": profile, "user": user})
+    posts = Post.objects.filter(usuario=user)
+    return render(request, template, {"profile": profile, "user": user, "posts": posts})
 
 
 # def profile(request):
