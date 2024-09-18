@@ -130,11 +130,17 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    sigue_al_usuario = request.user in user.seguidores.all()
+    # sigue_al_usuario = request.user in user.seguidores.all()
+    # print(sigue_al_usuario) "sigue_al_usuario": sigue_al_usuario
+    print(request.user)
+    print(user)
     return render(
         request,
         template,
-        {"profile": profile, "user": user, "sigue_al_usuario": sigue_al_usuario},
+        {
+            "profile": profile,
+            "user": user,
+        },
     )
 
 
@@ -220,7 +226,7 @@ def seguirUser(request, user_id):
 
     if request.user == perfil_a_seguir:
         print("El usuario está intentando seguirse a sí mismo.")
-        return redirect("profile")  # No permitir que un usuario se siga a sí mismo
+        return redirect("profile")  # No permite que un usuario se siga a sí mismo
 
     amistad, created = Amistad.objects.get_or_create(
         usuario=request.user, amigo=perfil_a_seguir
@@ -229,7 +235,7 @@ def seguirUser(request, user_id):
     if created:
         print(f"{request.user.username} empezó a seguir a {perfil_a_seguir.username}.")
     else:
-        amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
+        amistad.delete()  # dejar de seguir
         print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
 
     return redirect("profile_otros", user_id=user_id)

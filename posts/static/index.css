@@ -53,3 +53,24 @@ html, body {
     background-color: #f0f0f0;
   }
   
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+
+  .btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px; /* Tamaño del ícono */
+    color: #000; /* Color del ícono */
+  }
+  
+  .btn .material-symbols-outlined {
+    vertical-align: middle;
+    font-size: 24px; /* Tamaño del ícono */
+    color: inherit; /* Hereda el color del botón */
+  }

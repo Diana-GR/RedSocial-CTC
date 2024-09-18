@@ -29,14 +29,14 @@
   </div>
 
   <div class="profile-actions">
-    {% if sigue_al_usuario %}
-    <!-- Si el usuario autenticado ya sigue al perfil -->
+    {% if request.user in profile.user.amigos.all %}
+    <!-- Si ya sigues al perfil -->
     <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
       {% csrf_token %}
       <button type="submit">Dejar de seguir</button>
     </form>
     {% else %}
-    <!-- Si el usuario autenticado no sigue al perfil -->
+    <!-- Si no sigues al perfil -->
     <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
       {% csrf_token %}
       <button type="submit">Seguir</button>
