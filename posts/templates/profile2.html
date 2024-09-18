@@ -1,25 +1,63 @@
 {% extends "index.html" %} {% block "content" %}
-<h1>Perfil de {{ user.username }}</h1>
-<br />
-<p>{{profile.biography}}</p>
-<br />
-{% if request.user in profile.user.amigos.all %}
-<!-- Si el usuario autenticado ya sigue al perfil -->
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>Perfil de {{ user.username }}</h1>
+  </div>
+
+  <div class="profile-info">
+    <div class="profile-avatar">
+      {% if profile.avatar %}
+      <img
+        class="rounded-circle avatar"
+        src="{{ profile.avatar.url }}"
+        alt="Avatar"
+      />
+      {% else %}
+      <p>Sin foto de perfil.</p>
+      {% endif %}
+    </div>
+
+    <div class="profile-details">
+      {% comment %}
+      <h2>{{ request.user.username }}</h2>
+      {% endcomment %}
+      <h2>{{ user.username }}</h2>
+      <p>{{ profile.biography }}</p>
+      <h6>Amigos:</h6>
+      <a>{{ user.numero_de_amigos }} amigos</a>
+    </div>
+  </div>
+
+  <div class="profile-actions">
+    {% if request.user in profile.user.amigos.all %}
+    <!-- Si ya sigues al perfil -->
+    <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
+      {% csrf_token %}
+      <button type="submit">Dejar de seguir</button>
+    </form>
+    {% else %}
+    <!-- Si no sigues al perfil -->
+    <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
+      {% csrf_token %}
+      <button type="submit">Seguir</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock%} {% comment %} {% if sigue_al_usuario %}
+<!-- Si ya sigues al perfil -->
 <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
   {% csrf_token %}
-  <button type="submit">Dejar de seguir</button>
+  <button type="submit" class="btn">
+    <span class="material-symbols-outlined">favorite</span> Dejar de seguir
+  </button>
 </form>
 {% else %}
-<!-- Si el usuario autenticado no sigue al perfil -->
+<!-- Si no sigues al perfil -->
 <form method="POST" action="{% url 'seguirUser' profile.user.id %}">
   {% csrf_token %}
-  <button type="submit">Seguir</button>
+  <button type="submit" class="btn">
+    <span class="material-symbols-outlined">favorite_border</span> Seguir
+  </button>
 </form>
-{% endif %}
-
-<br />
-{%if profile.avatar%}
-<img src="{{profile.avatar.url}}" alt="Avatar" />
-{%else%}
-<p>No avatar uploades.</p>
-{%endif%} {% endblock%}
+{% endif %} {% endcomment %}

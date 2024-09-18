@@ -135,9 +135,13 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    posts = Post.objects.filter(usuario=user)
+    return render(request, template, {"profile": profile, "user": user})
 
-    return render(request, template, {"profile": profile, "user": user, "posts": posts})
+
+# def profile(request):
+#     user = request.user
+#     profile, created = Profile.objects.get_or_create(user=user)
+#     return render(request, "profile.html", {"profile": profile})
 
 
 @login_required
@@ -196,6 +200,7 @@ def seguirUsers(request, user_id):
     perfil_a_seguir = get_object_or_404(User, id=user_id)
 
     if request.user == perfil_a_seguir:
+        print("El usuario está intentando seguirse a sí mismo.")
         return redirect("profile")  # No permitir que un usuario se siga a sí mismo
 
     amistad, created = Amistad.objects.get_or_create(
@@ -203,6 +208,7 @@ def seguirUsers(request, user_id):
     )
 
     if not created:
+        print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
         amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
 
     return redirect("profile_otros", user_id=user_id)
@@ -214,7 +220,7 @@ def seguirUser(request, user_id):
 
     if request.user == perfil_a_seguir:
         print("El usuario está intentando seguirse a sí mismo.")
-        return redirect("profile")  # No permitir que un usuario se siga a sí mismo
+        return redirect("profile")  # No permite que un usuario se siga a sí mismo
 
     amistad, created = Amistad.objects.get_or_create(
         usuario=request.user, amigo=perfil_a_seguir
@@ -223,7 +229,7 @@ def seguirUser(request, user_id):
     if created:
         print(f"{request.user.username} empezó a seguir a {perfil_a_seguir.username}.")
     else:
-        amistad.delete()  # Si ya existe una amistad, eliminarla (dejar de seguir)
+        amistad.delete()  # dejar de seguir
         print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
 
     return redirect("profile_otros", user_id=user_id)
