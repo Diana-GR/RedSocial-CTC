@@ -21,11 +21,7 @@
   {% for post in posts %}
   <div class="post">
     <div class="post-header">
-      <img
-        src="{{ post.usuario.profile_picture.url }}"
-        alt="Profile"
-        class="profile-pic"
-      />
+      
       <div class="post-info">
         <p class="post-username">{{ post.usuario.username }}</p>
         <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>

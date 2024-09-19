@@ -66,11 +66,10 @@ html, body {
     border: none;
     cursor: pointer;
     font-size: 24px; /* Tamaño del ícono */
-    color: #000; /* Color del ícono */
   }
   
   .btn .material-symbols-outlined {
     vertical-align: middle;
-    font-size: 24px; /* Tamaño del ícono */
+    font-size: 15px; /* Tamaño del ícono */
     color: inherit; /* Hereda el color del botón */
   }

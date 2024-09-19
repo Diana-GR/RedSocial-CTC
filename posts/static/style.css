@@ -265,7 +265,7 @@ footer .nav a:hover {
 }
 
 .post-date {
-    font-size: 14px;
+    font-size: 10px;
     color: #777;
 }
 
@@ -345,7 +345,7 @@ footer .nav a:hover {
 }
 
 .comment-date {
-    font-size: 13px;
+    font-size: 8px;
     color: #777;
 }
 
@@ -380,7 +380,7 @@ footer .nav a:hover {
 
 /* Título de la página */
 .title {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     color: #983b3b;
     margin-bottom: 20px;
@@ -454,7 +454,8 @@ footer .nav a:hover {
 }
 
 .post-username {
-    font-size: 14px;
+    padding: 10px 30px 0 ;
+    font-size: 25px;
     font-weight: bold;
     color: #333;
 }
@@ -666,56 +667,99 @@ footer .nav a:hover {
 
 
 
-/* Contenedor del perfil */
-.profile-container {
-  background-color: #ffffff; /* Fondo blanco para la sección de perfil */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  max-width: 600px;
-  margin: 20px auto;
+
+
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh; /* Asegura que ocupe toda la pantalla */
+
+    background-image: url('https://images.unsplash.com/photo-1602536100338-c7762727ddb7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* URL de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: bottom;
 }
 
-/* Títulos en la sección de perfil */
-.profile-container h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.btn-primary {
+    background-color: #ff5f5f;
+}
+.signup-container button:hover {
+    background-color: #983b3b;
 }
 
-.profile-container h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
+.signup-container h1 {
+    text-align: center;
+    margin: 40px;
+    font-size: 40px; /* Tamaño más grande para que destaque */
 }
 
-/* Párrafos en la sección de perfil */
-.profile-container p {
-  font-size: 16px;
-  margin-bottom: 20px;
+.signup-container form {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Formularios dentro del contenedor de perfil */
-.profile-container form {
-  display: inline;
+
+
+
+
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+
+    background-image: url('https://images.unsplash.com/photo-1614577385018-378eb25fadcb?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* URL de la imagen de fondo */
+    background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+
 }
 
-/* Botones en la sección de perfil */
-.profile-container button {
-  background-color: #ff4d4d; /* Botón rojo */
-  color: #ffffff; /* Texto blanco */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 30px; /* Mayor espacio entre los títulos y el formulario */
+    font-size: 40px; /* Tamaño consistente */
 }
 
-.profile-container button:hover {
-  background-color: #e60000; /* Rojo más oscuro al pasar el ratón */
+.login-container form {
+    max-width: 450px;
+    width: 100%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-/* Imagen del avatar */
-.profile-container img {
-  max-width: 100px;
-  border-radius: 50%; /* Hacer la imagen circular */
+.login-container form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px; /* Aumenta el margen inferior entre los campos */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
+
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5f5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.login-container button:hover {
+    background-color: #983b3b;
+}
+

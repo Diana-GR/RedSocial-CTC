@@ -3,7 +3,7 @@
 {% block "content" %}
 <div class="post-detail-container">
     <div class="post-header">
-        <img src="{{ post.usuario.profile_image.url }}" alt="Avatar" class="avatar">
+        
         <div class="post-info">
             <p><strong>{{ post.usuario.username }}</strong></p>
             <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
@@ -25,14 +25,14 @@
     </div>
 
     <div class="comments-section">
-        <h2>Comentarios</h2>
+        <h2 class="title">Comentarios</h2>
 
         {% if comentarios %}
         <ul class="comments-list">
             {% for comentario in comentarios %}
             <li class="comment">
                 <div class="comment-header">
-                    <img src="{{ comentario.usuario.profile_image.url }}" alt="Avatar" class="avatar">
+                    
                     <div class="comment-info">
                         <p><strong>{{ comentario.usuario.username }}</strong></p>
                         <p>{{ comentario.fecha_comentario|date:"d M Y H:i" }}</p>
