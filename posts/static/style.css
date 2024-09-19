@@ -540,6 +540,7 @@ footer .nav a:hover {
 .profile-container {
     width: 600px;
     margin: 20px auto;
+    font-size: 14px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -616,6 +617,7 @@ footer .nav a:hover {
   background-color: #ffffff; /* Fondo blanco para la sección de perfil */
   padding: 20px;
   border-radius: 8px;
+  font-size: 14px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   max-width: 600px;
   margin: 20px auto;

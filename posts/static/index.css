@@ -21,7 +21,7 @@ html, body {
   }
   
   .main-container{
-    background-color: aquamarine;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.57)), url('https://images.unsplash.com/photo-1573008871345-a9b6788050c5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   }
 
 
@@ -73,3 +73,55 @@ html, body {
     font-size: 15px; /* Tamaño del ícono */
     color: inherit; /* Hereda el color del botón */
   }
+
+
+
+
+
+  /* General styling for the main container */
+.main-container {
+    height: 100vh; /* Fullscreen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container that holds the content */
+.container {
+    max-width: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 40px 20px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #1877f2;
+    border-color: #1877f2;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.btn-primary:hover {
+    background-color: #165ecc;
+    border-color: #165ecc;
+}
+
+.btn-outline-secondary {
+    border-radius: 50px;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #e0e0e0;
+    border-color: #dcdcdc;
+}
