@@ -23,8 +23,10 @@
       {% endcomment %}
       <h2>{{ user.username }}</h2>
       <p>{{ profile.biography }}</p>
-      <h6>Amigos:</h6>
-      <a>{{ user.numero_de_amigos }} amigos</a>
+      <div>
+        <p>Following: {{ user.numero_de_amigos }}</p>
+        <p>Followers: {{ user.numero_de_seguidores }}</p>
+      </div>
     </div>
   </div>
 

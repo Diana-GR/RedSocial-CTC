@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User  # Django ya lo tiene implementado
 
-# Agregar el campo 'seguir' al modelo User
 User.add_to_class(
     "seguir",
     models.ManyToManyField(
@@ -9,10 +8,17 @@ User.add_to_class(
     ),
 )
 
-# Agregar la propiedad 'numero_de_amigos' al modelo User
-User.add_to_class(
-    "numero_de_amigos", property(lambda u: Amistad.objects.filter(usuario=u).count())
-)
+
+def numero_de_amigos(self):
+    return self.seguir.count()  # Contar a cuántos sigue el usuario
+
+
+def numero_de_seguidores(self):
+    return self.seguidores.count()  # Contar cuántos lo siguen a él
+
+
+User.add_to_class("numero_de_amigos", property(numero_de_amigos))
+User.add_to_class("numero_de_seguidores", property(numero_de_seguidores))
 
 
 # Create your models here.

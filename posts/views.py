@@ -135,10 +135,9 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    sigue_al_usuario = request.user in user.seguir.all()
+    # sigue_al_usuario = request.user in user.seguir.all()
+    sigue_al_usuario = request.user.seguir.filter(id=user.id).exists()
     print(sigue_al_usuario)
-    print(request.user)
-    print(user)
     return render(
         request,
         template,
@@ -198,7 +197,7 @@ def aboutus(request):
 
 
 @login_required
-def seguirUser(request, user_id):
+def seguirUsers(request, user_id):
     perfil_a_seguir = get_object_or_404(User, id=user_id)
 
     if request.user == perfil_a_seguir:
@@ -214,6 +213,28 @@ def seguirUser(request, user_id):
     else:
         amistad.delete()  # dejar de seguir
         print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
+
+    return redirect("profile_otros", user_id=user_id)
+
+
+@login_required
+def seguirUser(request, user_id):
+    perfil_a_seguir = get_object_or_404(User, id=user_id)
+
+    if request.user == perfil_a_seguir:
+        # No permitir que un usuario se siga a sí mismo
+        print("Estás intentando seguirte a ti mismo.")
+        return redirect("profile", user_id=user_id)
+
+    # Verificar si ya sigue al usuario
+    if perfil_a_seguir in request.user.seguir.all():
+        # Si ya lo sigue, eliminar la relación (dejar de seguir)
+        request.user.seguir.remove(perfil_a_seguir)
+        print(f"{request.user.username} dejó de seguir a {perfil_a_seguir.username}.")
+    else:
+        # Si no lo sigue, añadir la relación (empezar a seguir)
+        request.user.seguir.add(perfil_a_seguir)
+        print(f"{request.user.username} empezó a seguir a {perfil_a_seguir.username}.")
 
     return redirect("profile_otros", user_id=user_id)
 
