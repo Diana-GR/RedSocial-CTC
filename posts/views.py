@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
 from .forms import PostForm
+from django.contrib import messages
 
 
 def index(request):
@@ -111,7 +112,7 @@ def home(request):
                 )
                 nuevo_comentario.save()
                 return redirect("home")
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by("-fecha_publicacion")
     return render(request, "home.html", {"posts": posts})
 
 
@@ -135,7 +136,7 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    posts = Post.objects.filter(usuario=user)
+    posts = Post.objects.filter(usuario=user).order_by("-fecha_publicacion")
     sigue_al_usuario = request.user.seguir.filter(id=user.id).exists()
     print(sigue_al_usuario)
     return render(
@@ -281,3 +282,10 @@ def edit_post(request, post_id):
         form = PostForm(instance=post)  # Cargar el post existente en el formulario
 
     return render(request, "edit_post.html", {"form": form})
+
+
+def deletepost(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    post.delete()
+    messages.success(request, "Publicación eliminada con éxito.")
+    return redirect("profile")  # Cambia a la URL que desees

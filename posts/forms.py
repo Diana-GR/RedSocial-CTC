@@ -6,7 +6,7 @@ from .models import Task, Profile, Comentario, Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "contenido", "image"]
+        fields = ["contenido", "image"]
 
     contenido = forms.CharField(
         widget=forms.Textarea(attrs={"placeholder": "Escribe tu publicación aquí..."}),

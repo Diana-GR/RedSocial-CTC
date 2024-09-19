@@ -1,64 +1,95 @@
-{% extends "index.html" %}
-
-{% block "content" %}
+{% extends "index.html" %} {% block "content" %}
 <div class="profile-container">
-    <div class="profile-header">
-        <h1>Perfil de usuario</h1>
+  <div class="profile-header">
+    <h1>Perfil de usuario</h1>
+  </div>
+
+  <div class="profile-info">
+    <div class="profile-avatar">
+      {% if profile.avatar %}
+      <img
+        class="rounded-circle avatar"
+        src="{{ profile.avatar.url }}"
+        alt="Avatar"
+      />
+      {% else %}
+      <p>No avatar uploaded.</p>
+      {% endif %}
     </div>
 
-    <div class="profile-info">
-        <div class="profile-avatar">
-            {% if profile.avatar %}
-                <img class="rounded-circle avatar" src="{{ profile.avatar.url }}" alt="Avatar">
-            {% else %}
-                <p>No avatar uploaded.</p>
-            {% endif %}
-        </div>
+    <div class="profile-details">
+      <h2>{{ request.user.username }}</h2>
+      <p>{{ profile.biography }}</p>
+      <div>
+        <p>Following: {{ user.numero_de_amigos }}</p>
+        <p>Followers: {{ user.numero_de_seguidores }}</p>
+      </div>
+    </div>
+  </div>
 
-        <div class="profile-details">
-            <h2>{{ request.user.username }}</h2>
-            <p>{{ profile.biography }}</p>
-            <div>
-                <p>Following: {{ user.numero_de_amigos }}</p>
-                <p>Followers: {{ user.numero_de_seguidores }}</p>
-            </div>
-        </div>
+  <div class="profile-actions">
+    <a href="{% url 'edit_profile' %}" class="btn-edit-profile"
+      >Editar perfil</a
+    >
+  </div>
+
+  <div class="profile-posts">
+    <h1>Mis publicaciones</h1>
+
+    <!-- Mensajes aquí-->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}{% endif %}
+
+    {% for post in posts %}
+    <div class="post">
+      <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
+      <p>{{ post.contenido }}</p>
+      {% if post.image %}
+      <img
+        src="{{ post.image.url }}"
+        alt="Imagen de la publicación"
+        style="max-width: 100%; height: auto; border-radius: 0;"
+      />
+      {% endif %}
+
+      <!-- Botón para editar publicacion-->
+      <button onclick="location.href='{% url 'edit_post' post.id %}'">
+        Editar
+      </button>
+
+      <!-- Botón para eliminar -->
+      <form
+        method="POST"
+        action="{% url "delete_post" post.id %}"
+        onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
+      >
+        {% csrf_token %}
+        <button type="submit" class="btn-delete">Eliminar</button>
+      </form>
+
+      <script>
+        // Espera 3 segundos (3000 ms) antes de ocultar los mensajes
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }, 3000);
+    </script>
     </div>
 
-    <div class="profile-actions">
-        <a href="{% url 'edit_profile' %}" class="btn-edit-profile">Editar perfil</a>
-    </div>
-
-    <div class="profile-posts">
-
-        
-        <h1>Mis publicaciones</h1>
-        
-        {% for post in posts %}
-        <div class="post">
-            <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
-            <p>{{ post.contenido }}</p>
-            {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto"
-    />   
-            {% endif %}
-            
-            <!-- Botón para editar publicacion-->
-            <button onclick="location.href='{% url 'edit_post' post.id %}'">Editar</button>
+    
+    
+    
+    
+    
 
 
-            <!-- Botón para eliminar -->
-            <form method="POST" >
-                {% csrf_token %}
-                <button type="submit" class="btn-delete">Eliminar</button>
-            </form>
-        </div>
-        {% empty %}
-        <p>No hay publicaciones.</p>
-        {% endfor %}
-    </div>
-
-
-
+    {% empty %}
+    <p>No hay publicaciones.</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

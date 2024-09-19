@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path("", views.index, name="index"),
     path("login/", views.session, name="login"),
@@ -19,4 +20,5 @@ urlpatterns = [
     path("like_comment/<int:comment_id>/", views.like_comment, name="like_comment"),
     path("buscar/", views.buscarUser, name="buscarUser"),
     path("edit_post/<int:post_id>/", views.edit_post, name="edit_post"),
+    path("deletepost/<int:post_id>/", views.deletepost, name="delete_post"),
 ]
