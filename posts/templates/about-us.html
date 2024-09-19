@@ -1,1 +1,19 @@
-<h1>Este es el About us</h1>
+{% extends "index.html" %} {% block "content" %}
+<div class="publications-container">
+<div class="post">
+    <div class="post-header">
+      
+      <div class="post-info">
+        <h1 class="post-username">Development Team</h1>
+        <ul class="post-content">
+            <h5>Grupo 4:</h5> 
+            <li>Diana Guzman</li>
+            <li>Claudia Aviles</li>
+            <li>Vale </li>
+        </ul>
+      </div>
+    </div>
+    <p class="post-content">{{ post.contenido }}</p>
+</div>
+</div>
+{% endblock "content" %}

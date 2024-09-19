@@ -80,7 +80,8 @@ nav.navbar {
     font-size: 16px;
 }
 
-.sidebar .menu a.active, .sidebar .menu a:hover {
+.sidebar .menu a.active,
+.sidebar .menu a:hover {
     background-color: #ff5f5f;
     color: white;
 }
@@ -217,7 +218,8 @@ footer .nav a:hover {
     margin-bottom: 10px;
 }
 
-.post-date, .post-likes {
+.post-date,
+.post-likes {
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
@@ -454,7 +456,7 @@ footer .nav a:hover {
 }
 
 .post-username {
-    padding: 10px 30px 0 ;
+    padding: 10px 30px 0;
     font-size: 25px;
     font-weight: bold;
     color: #333;
@@ -491,6 +493,20 @@ footer .nav a:hover {
 
 .btn-like:hover {
     background-color: #d8dada;
+}
+
+.btn-like .material-symbols-outlined {
+    vertical-align: middle;
+    font-size: 15px;
+    color: rgb(255, 0, 0);
+
+}
+
+.btn .material-symbols-outlined {
+    vertical-align: middle;
+    font-size: 15px;
+    color: white;
+
 }
 
 /* Comentarios */
@@ -614,57 +630,62 @@ footer .nav a:hover {
 
 /* Contenedor del perfil */
 .profile-container {
-  background-color: #ffffff; /* Fondo blanco para la sección de perfil */
-  padding: 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  max-width: 600px;
-  margin: 20px auto;
+    background-color: #ffffff;
+    /* Fondo blanco para la sección de perfil */
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
 }
 
 /* Títulos en la sección de perfil */
 .profile-container h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .profile-container h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
+    font-size: 20px;
+    margin-bottom: 15px;
 }
 
 /* Párrafos en la sección de perfil */
 .profile-container p {
-  font-size: 16px;
-  margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 /* Formularios dentro del contenedor de perfil */
 .profile-container form {
-  display: inline;
+    display: inline;
 }
 
 /* Botones en la sección de perfil */
 .profile-container button {
-  background-color: #ff4d4d; /* Botón rojo */
-  color: #ffffff; /* Texto blanco */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #ff4d4d;
+    /* Botón rojo */
+    color: #ffffff;
+    /* Texto blanco */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .profile-container button:hover {
-  background-color: #e60000; /* Rojo más oscuro al pasar el ratón */
+    background-color: #e60000;
+    /* Rojo más oscuro al pasar el ratón */
 }
 
 /* Imagen del avatar */
 .profile-container img {
-  max-width: 100px;
-  border-radius: 50%; /* Hacer la imagen circular */
+    max-width: 100px;
+    border-radius: 50%;
+    /* Hacer la imagen circular */
 }
 
 
@@ -676,17 +697,22 @@ footer .nav a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh; /* Asegura que ocupe toda la pantalla */
+    height: 70vh;
+    /* Asegura que ocupe toda la pantalla */
 
-    background-image: url('https://images.unsplash.com/photo-1602536100338-c7762727ddb7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* URL de la imagen de fondo */
-    background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-image: url('https://images.unsplash.com/photo-1602536100338-c7762727ddb7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    /* URL de la imagen de fondo */
+    background-size: cover;
+    /* Ajusta la imagen para que cubra todo el contenedor */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
     background-position: bottom;
 }
 
 .btn-primary {
     background-color: #ff5f5f;
 }
+
 .signup-container button:hover {
     background-color: #983b3b;
 }
@@ -694,7 +720,8 @@ footer .nav a:hover {
 .signup-container h1 {
     text-align: center;
     margin: 40px;
-    font-size: 40px; /* Tamaño más grande para que destaque */
+    font-size: 40px;
+    /* Tamaño más grande para que destaque */
 }
 
 .signup-container form {
@@ -718,16 +745,21 @@ footer .nav a:hover {
     justify-content: center;
     height: 70vh;
 
-    background-image: url('https://images.unsplash.com/photo-1614577385018-378eb25fadcb?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* URL de la imagen de fondo */
-    background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-image: url('https://images.unsplash.com/photo-1614577385018-378eb25fadcb?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    /* URL de la imagen de fondo */
+    background-size: cover;
+    /* Ajusta la imagen para que cubra todo el contenedor */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
 
 }
 
 .login-container h1 {
     text-align: center;
-    margin-bottom: 30px; /* Mayor espacio entre los títulos y el formulario */
-    font-size: 40px; /* Tamaño consistente */
+    margin-bottom: 30px;
+    /* Mayor espacio entre los títulos y el formulario */
+    font-size: 40px;
+    /* Tamaño consistente */
 }
 
 .login-container form {
@@ -743,7 +775,8 @@ footer .nav a:hover {
 .login-container form input {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px; /* Aumenta el margen inferior entre los campos */
+    margin-bottom: 20px;
+    /* Aumenta el margen inferior entre los campos */
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
@@ -764,4 +797,3 @@ footer .nav a:hover {
 .login-container button:hover {
     background-color: #983b3b;
 }
-

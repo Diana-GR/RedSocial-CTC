@@ -1,127 +1,111 @@
-
-.h1{
-    color: brown;
+.h1 {
+  color: brown;
 }
 
-html, body {
-    height: 100%; /* Asegúrate de que el html y el body ocupen el 100% de la altura */
-    margin: 0; /* Elimina los márgenes por defecto */
-    position: relative; /* Asegura que el body sea el contenedor de referencia */
-  }
-  
-  .container {
-    
-    width: 450px;
-    
-   
-    position: absolute; /* Posiciona el div absolutamente */
-    top: 50%; /* Posiciona el div en el centro verticalmente */
-    left: 50%; /* Posiciona el div en el centro horizontalmente */
-    transform: translate(-50%, -50%); /* Ajusta la posición para centrarlo perfectamente */
-  }
-  
-  .main-container{
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.57)), url('https://images.unsplash.com/photo-1573008871345-a9b6788050c5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  }
+html,
+body {
+  height: 100%;
+  /* Asegúrate de que el html y el body ocupen el 100% de la altura */
+  margin: 0;
+  /* Elimina los márgenes por defecto */
+  position: relative;
+  /* Asegura que el body sea el contenedor de referencia */
+}
+
+.container {
+
+  width: 450px;
 
 
-  .search-bar {
-    position: relative;
-  }
-  
-  .dropdown-busqueda {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    max-height: 200px;
-    overflow-y: auto;
-    display: none;
-    z-index: 1000;
-  }
-  
-  .dropdown-busqueda a {
-    display: block;
-    padding: 8px;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .dropdown-busqueda a:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
+  position: absolute;
+  /* Posiciona el div absolutamente */
+  top: 50%;
+  /* Posiciona el div en el centro verticalmente */
+  left: 50%;
+  /* Posiciona el div en el centro horizontalmente */
+  transform: translate(-50%, -50%);
+  /* Ajusta la posición para centrarlo perfectamente */
+}
 
-  .btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 24px; /* Tamaño del ícono */
-  }
-  
-  .btn .material-symbols-outlined {
-    vertical-align: middle;
-    font-size: 15px; /* Tamaño del ícono */
-    color: inherit; /* Hereda el color del botón */
-  }
-
-
-
-
-
-  /* General styling for the main container */
 .main-container {
-    height: 100vh; /* Fullscreen height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.57)), url('https://images.unsplash.com/photo-1573008871345-a9b6788050c5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+}
+
+
+.search-bar {
+  position: relative;
+}
+
+.dropdown-busqueda {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+}
+
+.dropdown-busqueda a {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown-busqueda a:hover {
+  background-color: #f0f0f0;
+}
+
+/* General styling for the main container */
+.main-container {
+  height: 100vh;
+  /* Fullscreen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Container that holds the content */
 .container {
-    max-width: 500px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    padding: 40px 20px;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  /* Soft shadow */
+  padding: 40px 20px;
 }
 
 h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 30px;
 }
 
 /* Button styles */
 .btn-primary {
-    background-color: #1877f2;
-    border-color: #1877f2;
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    border-radius: 50px;
+  background-color: #1877f2;
+  border-color: #1877f2;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 50px;
 }
 
 .btn-primary:hover {
-    background-color: #165ecc;
-    border-color: #165ecc;
+  background-color: #165ecc;
+  border-color: #165ecc;
 }
 
 .btn-outline-secondary {
-    border-radius: 50px;
-    font-size: 1.2rem;
-    padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  padding: 10px 20px;
 }
 
 .btn-outline-secondary:hover {
-    background-color: #e0e0e0;
-    border-color: #dcdcdc;
+  background-color: #e0e0e0;
+  border-color: #dcdcdc;
 }
