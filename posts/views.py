@@ -135,13 +135,18 @@ def profile(request, user_id=None):
         template = "profile.html"
 
     profile, created = Profile.objects.get_or_create(user=user)
-    # sigue_al_usuario = request.user in user.seguir.all()
+    posts = Post.objects.filter(usuario=user)
     sigue_al_usuario = request.user.seguir.filter(id=user.id).exists()
     print(sigue_al_usuario)
     return render(
         request,
         template,
-        {"profile": profile, "user": user, "sigue_al_usuario": sigue_al_usuario},
+        {
+            "profile": profile,
+            "user": user,
+            "posts": posts,
+            "sigue_al_usuario": sigue_al_usuario,
+        },
     )
 
 

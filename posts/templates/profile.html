@@ -28,5 +28,32 @@
     <div class="profile-actions">
         <a href="{% url 'edit_profile' %}" class="btn-edit-profile">Editar perfil</a>
     </div>
+
+    <div class="profile-posts">
+
+        
+        <h1>Mis publicaciones</h1>
+        {% for post in posts %}
+        <div class="post">
+            <p>{{ post.contenido }}</p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto;">
+            {% endif %}
+            <p>Publicado el {{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
+            <!-- Botón para editar -->
+            <a  class="btn-edit">Editar</a>
+            <!-- Botón para eliminar -->
+            <form method="POST" >
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Eliminar</button>
+            </form>
+        </div>
+        {% empty %}
+        <p>No hay publicaciones.</p>
+        {% endfor %}
+    </div>
+
+
+
 </div>
 {% endblock %}
