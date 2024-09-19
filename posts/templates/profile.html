@@ -33,15 +33,20 @@
 
         
         <h1>Mis publicaciones</h1>
+        
         {% for post in posts %}
         <div class="post">
+            <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
             <p>{{ post.contenido }}</p>
             {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto;">
+            <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto"
+    />   
             {% endif %}
-            <p>Publicado el {{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
-            <!-- Botón para editar -->
-            <a  class="btn-edit">Editar</a>
+            
+            <!-- Botón para editar publicacion-->
+            <button onclick="location.href='{% url 'edit_post' post.id %}'">Editar</button>
+
+
             <!-- Botón para eliminar -->
             <form method="POST" >
                 {% csrf_token %}

@@ -262,3 +262,22 @@ def buscarUser(request):
         Q(username__icontains=query) | Q(profile__biography__icontains=query)
     ).values("id", "username")
     return JsonResponse({"results": list(users)})
+
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.method == "POST":
+        form = PostForm(
+            request.POST, request.FILES, instance=post
+        )  # Asigna la instancia del post
+        if form.is_valid():
+            post = form.save(commit=False)  # No lo guarda aún
+            post.usuario = request.user  # Asigna el usuario
+            post.save()  # Ahora lo guarda
+            return redirect("profile")
+    else:
+        form = PostForm(instance=post)  # Cargar el post existente en el formulario
+
+    return render(request, "edit_post.html", {"form": form})

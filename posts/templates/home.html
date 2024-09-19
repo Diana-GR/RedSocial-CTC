@@ -24,7 +24,7 @@
       
       <div class="post-info">
         <p class="post-username">{{ post.usuario.username }}</p>
-        <p class="post-time">{{ post.timestamp|date:"d M Y H:i" }}</p>
+        <p class="post-time"> {{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
       </div>
     </div>
     <p class="post-content">{{ post.contenido }}</p>
