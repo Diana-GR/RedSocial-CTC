@@ -495,14 +495,16 @@ footer .nav a:hover {
     background-color: #d8dada;
 }
 
-.btn-like .material-symbols-outlined {
+.btn-like .material-symbols-outlined,
+.btn-like-comment .material-symbols-outlined {
     vertical-align: middle;
     font-size: 15px;
     color: rgb(255, 0, 0);
 
 }
 
-.btn .material-symbols-outlined {
+.btn .material-symbols-outlined,
+.btn-like-comment .material-symbols-outlined {
     vertical-align: middle;
     font-size: 15px;
     color: white;
@@ -800,16 +802,18 @@ footer .nav a:hover {
 
 .btn-upload {
     display: inline-block;
-    background-color: #007bff; /* Cambia el color según tu diseño */
+    background-color: #007bff;
+    /* Cambia el color según tu diseño */
     color: white;
     padding: 8px 10px;
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    margin-bottom: 10px; /* Espacio entre el botón y el textarea */
-  }
-  
-  .btn-upload:hover {
-    background-color: #0056b3; /* Color al pasar el ratón */
-  }
-  
+    margin-bottom: 10px;
+    /* Espacio entre el botón y el textarea */
+}
+
+.btn-upload:hover {
+    background-color: #0056b3;
+    /* Color al pasar el ratón */
+}

@@ -19,7 +19,11 @@
         <form method="POST" action="{% url 'like_post' post.id %}">
             {% csrf_token %}
             <button type="submit" class="btn-like-post">
-                {% if user in post.likes.all %} Quitar me gusta {% else %} Me gusta {% endif %}
+                {% if user in post.likes.all %} <span class="material-symbols-outlined" style= "font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24">favorite</span> Quitar like {% else %} <span class="material-symbols-outlined">favorite</span> Me Gusta {% endif %}
             </button>
         </form>
     </div>
@@ -42,7 +46,11 @@
                 <form method="POST" action="{% url 'like_comment' comentario.id %}">
                     {% csrf_token %}
                     <button type="submit" class="btn-like-comment">
-                        {% if user in comentario.likes.all %} Quitar me gusta {% else %} Me gusta {% endif %}
+                        {% if user in comentario.likes.all %} <span class="material-symbols-outlined" style= "font-variation-settings:
+                        'FILL' 1,
+                        'wght' 400,
+                        'GRAD' 0,
+                        'opsz' 24">favorite</span> Quitar like {% else %} <span class="material-symbols-outlined">favorite</span> Me Gusta {% endif %}
                     </button>
                 </form>
             </li>
