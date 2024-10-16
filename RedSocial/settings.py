@@ -32,7 +32,7 @@ DEBUG = False  # AGREGADO PARA DESPLEGAR
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
-    "https://quicktalk-ct88.onrender.com",
+    "quicktalk-ct88.onrender.com",
     "localhost",
 ]  # AGREGADA PARA DESPLEGAR
 
