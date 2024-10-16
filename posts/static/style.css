@@ -690,103 +690,103 @@ footer .nav a:hover {
 
 /* General Styles */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
 }
 
 /* Contenedor Principal */
 .profile-container-editar {
-  width: 60%;
-  margin: 40px auto;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+    width: 60%;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 /* Header del perfil */
 .profile--editar h1 {
-  text-align: center;
-  color: #b30000;
-  font-size: 28px;
-  margin-bottom: 25px;
+    text-align: center;
+    color: #b30000;
+    font-size: 28px;
+    margin-bottom: 25px;
 }
 
 /* Información del perfil */
 .profile-info-editar {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
 /* Avatar del perfil */
 .profile-avatar-editar {
-  flex: 1;
-  text-align: center;
+    flex: 1;
+    text-align: center;
 }
 
 .avatar-editar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 3px solid #b30000;
-  object-fit: cover;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #b30000;
+    object-fit: cover;
 }
 
 /* Detalles del perfil */
 .profile-details-editar {
-  flex: 2;
+    flex: 2;
 }
 
 .profile-details-editar h2 {
-  color: #b30000;
-  font-size: 24px;
-  margin-bottom: 10px;
+    color: #b30000;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .profile-details-editar p {
-  font-size: 18px;
-  color: #555;
-  margin: 5px 0;
+    font-size: 18px;
+    color: #555;
+    margin: 5px 0;
 }
 
 .profile-details-editar div p {
-  font-weight: bold;
-  color: #b30000;
+    font-weight: bold;
+    color: #b30000;
 }
 
 /* Botones de Acción */
 .profile-actions-editar {
-  text-align: center;
-  margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .btn {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 18px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
 }
 
 .btn:hover {
-  background-color: #cc0000;
+    background-color: #cc0000;
 }
 
 /* Icono dentro del botón */
 .material-symbols-outlined {
-  font-size: 24px;
-  color: white;
+    font-size: 24px;
+    color: white;
 }
 
 
@@ -923,63 +923,63 @@ body {
 
 /* Contenedor Principal */
 .profile-edit-container {
-  width: 40%;
-  margin: 50px auto;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  text-align: center;
+    width: 40%;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
 }
 
 /* Título */
 .profile-edit-container h1 {
-  color: #b30000;
-  font-size: 32px;
-  margin-bottom: 20px;
+    color: #b30000;
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
 /* Formulario */
 .profile-edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 /* Campos del Formulario */
 .profile-edit-form input[type="text"],
 .profile-edit-form input[type="file"],
 .profile-edit-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
 .profile-edit-form input[type="text"]:focus,
 .profile-edit-form input[type="file"]:focus,
 .profile-edit-form textarea:focus {
-  border-color: #b30000;
-  outline: none;
+    border-color: #b30000;
+    outline: none;
 }
 
 /* Botón Enviar */
 .btn-submit {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-submit:hover {
-  background-color: #cc0000;
+    background-color: #cc0000;
 }
 
 
@@ -987,67 +987,63 @@ body {
 
 /* Contenedor Principal */
 .post-edit-container {
-  width: 50%;
-  margin: 60px auto;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  text-align: center;
+    width: 50%;
+    margin: 60px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
 }
 
 /* Título */
 .post-edit-container h1 {
-  color: #d32f2f;
-  font-size: 30px;
-  margin-bottom: 25px;
-  font-weight: 600;
+    color: #d32f2f;
+    font-size: 30px;
+    margin-bottom: 25px;
+    font-weight: 600;
 }
 
 /* Formulario */
 .post-edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 /* Campos del Formulario */
 .post-edit-form input[type="text"],
 .post-edit-form input[type="file"],
 .post-edit-form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d6d6d6;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
 /* Efecto al Focar */
 .post-edit-form input[type="text"]:focus,
 .post-edit-form input[type="file"]:focus,
 .post-edit-form textarea:focus {
-  border-color: #d32f2f;
-  outline: none;
+    border-color: #d32f2f;
+    outline: none;
 }
 
 /* Botón Enviar */
 .btn-submit {
-  background-color: #e57373;
-  color: white;
-  border: none;
-  padding: 14px;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background-color: #e57373;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-submit:hover {
-  background-color: #c62828;
+    background-color: #c62828;
 }
-
-
-
-
