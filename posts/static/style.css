@@ -625,6 +625,65 @@ footer .nav a:hover {
 .btn-edit-profile:hover {
     background-color: #ff3f3f;
 }
+.post-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px; /* Espacio entre los botones */
+  margin-top: 10px;
+}
+
+.post-buttons {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #ff3f3f;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #d9534f;
+  color: white;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  opacity: 0.8;
+}
+
+/* Publicaciones */
+.profile-posts h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.post {
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post p {
+  margin: 10px 0;
+  color: #444;
+}
+
+/* Mensajes */
+.alert {
+  background-color: #dff0d8;
+  color: #ff5f5f;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
 
 
 
