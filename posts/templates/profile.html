@@ -60,19 +60,19 @@
       {% endif %}
 
       <!-- Botón para editar publicacion-->
-      <button onclick="location.href='{% url 'edit_post' post.id %}'">
+    <div class="post-buttons-container">
+  <!-- Botón para editar publicacion-->
+      <button class="btn-edit post-buttons" onclick="location.href='{% url 'edit_post' post.id %}'">
         Editar
       </button>
 
       <!-- Botón para eliminar -->
-      <form
-        method="POST"
-        action="{% url "delete_post" post.id %}"
-        onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');"
-      >
+      <form method="POST" action="{% url 'delete_post' post.id %}"
+        onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
         {% csrf_token %}
-        <button type="submit" class="btn-delete">Eliminar</button>
+        <button type="submit" class="btn-delete post-buttons">Eliminar</button>
       </form>
+    </div>
 
       <script>
         // Espera 3 segundos (3000 ms) antes de ocultar los mensajes
