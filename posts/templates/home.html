@@ -24,8 +24,23 @@
   {% for post in posts %}
   <div class="post">
     <div class="post-header">
+
+      <div class="post-avatar">
+        {% if post.usuario.profile.avatar %}
+        <img
+          class="rounded-circle avatar"
+          src="{{ post.usuario.profile.avatar.url }}"
+          alt="Avatar"
+        />
+        {% else %}
+        <p>No avatar available.</p>
+        {% endif %}
+      </div>
       
+
+
       <div class="post-info">
+        
         <p class="post-username">{{ post.usuario.username }}</p>
         <p class="post-time"> {{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
       </div>
