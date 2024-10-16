@@ -1,19 +1,30 @@
 {% extends "index.html" %} {% block "content" %}
 <div class="publications-container">
-<div class="post">
-    <div class="post-header">
-      
-      <div class="post-info">
-        <h1 class="post-username">Development Team</h1>
-        <ul class="post-content">
-            <h5>Grupo 4:</h5> 
-            <li>Diana Guzman</li>
-            <li>Claudia Aviles</li>
-            <li>Valeria Peralta</li>
-        </ul>
+  <div class="post">
+    <div class="post-info">
+      <h1 class="text-center">Development Team</h1>
+      <h5 class="text-center">Grupo 3:</h5>
+      <div class="row">
+      <!-- Integrante 1 -->
+        <div class="col-md-4 text-center">
+          <img src="" alt="Diana Guzman" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5>Diana Guzman</h5>
+          <p>Backend Developer</p>
+        </div>
+      <!-- Integrante 2 -->
+        <div class="col-md-4 text-center">
+          <img src="" alt="Claudia Aviles" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5>Claudia Aviles</h5>
+          <p>Backend Developer</p>
+        </div>
+      <!-- Integrante 3 -->
+        <div class="col-md-4 text-center">
+          <img src="" alt="Valeria Peralta" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5>Valeria Peralta</h5>
+          <p>Frontend Developer</p>
+        </div>
       </div>
     </div>
-    <p class="post-content">{{ post.contenido }}</p>
-</div>
+  </div>
 </div>
 {% endblock "content" %}
