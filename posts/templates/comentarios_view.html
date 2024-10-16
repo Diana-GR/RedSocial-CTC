@@ -1,9 +1,25 @@
 {% extends "index.html" %}
+{% load static %}
 
 {% block "content" %}
 <div class="post-detail-container">
     <div class="post-header">
-        
+        <div class="post-avatar">
+            {% if post.usuario.profile.avatar %}
+            <img
+              class="rounded-circle avatar"
+              src="{{ post.usuario.profile.avatar.url }}"
+              alt="Avatar"
+            />
+            {% else %}
+            <img
+              class="rounded-circle avatar"
+              src="{% static 'avatar-perfil.jpg' %}"
+              alt="Avatar"
+            />
+            {% endif %}
+        </div>
+
         <div class="post-info">
             <p><strong>{{ post.usuario.username }}</strong></p>
             <p>{{ post.fecha_publicacion|date:"d M Y H:i" }}</p>
@@ -13,8 +29,8 @@
     <div class="post-content">
         <p>{{ post.contenido }}</p>
         {% if post.image %}
-    <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto"/>
-    {% endif %}
+        <img src="{{ post.image.url }}" alt="Imagen de la publicación" style="max-width: 100%; height: auto"/>
+        {% endif %}
     </div>
 
     <div class="post-actions">
@@ -22,11 +38,11 @@
         <form method="POST" action="{% url 'like_post' post.id %}" onsubmit="likePost(event, {{ post.id }})">
             {% csrf_token %}
             <button type="submit" id="like-button-{{ post.id }}" class="btn-like-post">
-                {% if user in post.likes.all %} <span class="material-symbols-outlined" style= "font-variation-settings:
-                'FILL' 1,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 24">favorite</span> Quitar like {% else %} <span class="material-symbols-outlined">favorite</span> Me Gusta {% endif %}
+                {% if user in post.likes.all %}
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24">favorite</span> Quitar like
+                {% else %}
+                <span class="material-symbols-outlined">favorite</span> Me Gusta
+                {% endif %}
             </button>
         </form>
     </div>
@@ -39,7 +55,22 @@
             {% for comentario in comentarios %}
             <li class="comment">
                 <div class="comment-header">
-                    
+                    <div class="comment-avatar">
+                        {% if comentario.usuario.profile.avatar %}
+                        <img
+                          class="rounded-circle avatar"
+                          src="{{ comentario.usuario.profile.avatar.url }}"
+                          alt="Avatar"
+                        />
+                        {% else %}
+                        <img
+                          class="rounded-circle avatar"
+                          src="{% static 'avatar-perfil.jpg' %}"
+                          alt="Avatar"
+                        />
+                        {% endif %}
+                    </div>
+
                     <div class="comment-info">
                         <p><strong>{{ comentario.usuario.username }}</strong></p>
                         <p>{{ comentario.fecha_comentario|date:"d M Y H:i" }}</p>
@@ -49,11 +80,11 @@
                 <form method="POST" action="{% url 'like_comment' comentario.id %}" onsubmit="likeComment(event, {{ comentario.id }})">
                     {% csrf_token %}
                     <button type="submit" id="like-comment-button-{{ comentario.id }}" class="btn-like-comment">
-                        {% if user in comentario.likes.all %} <span class="material-symbols-outlined" style= "font-variation-settings:
-                        'FILL' 1,
-                        'wght' 400,
-                        'GRAD' 0,
-                        'opsz' 24">favorite</span> Quitar like {% else %} <span class="material-symbols-outlined">favorite</span> Me Gusta {% endif %}
+                        {% if user in comentario.likes.all %}
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24">favorite</span> Quitar like
+                        {% else %}
+                        <span class="material-symbols-outlined">favorite</span> Me Gusta
+                        {% endif %}
                     </button>
                 </form>
             </li>
@@ -64,48 +95,47 @@
         {% endif %}
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // Función para manejar el like en publicaciones usando AJAX
-        function likePost(event, postId) {
-            event.preventDefault();
-            $.ajax({
-                url: `/like_post/${postId}/`,
-                type: 'POST',
-                data: {
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function(response) {
-                    // Actualizar el botón de like
-                    const button = $(`#like-button-${postId}`);
-                    if (response.liked) {
-                        button.html('<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 24">favorite</span> Quitar like');
-                    } else {
-                        button.html('<span class="material-symbols-outlined">favorite_border</span> Like');
-                    }
-                }
-            });
-        }
 
-        // Función para manejar el like en comentarios usando AJAX
-        function likeComment(event, commentId) {
-            event.preventDefault();
-            $.ajax({
-                url: `/like_comment/${commentId}/`,
-                type: 'POST',
-                data: {
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function(response) {
-                    // Actualizar el botón de like
-                    const button = $(`#like-comment-button-${commentId}`);
-                    if (response.liked) {
-                        button.html('<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 24">favorite</span> Quitar like');
-                    } else {
-                        button.html('<span class="material-symbols-outlined">favorite_border</span> Me Gusta');
-                    }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Función para manejar el like en publicaciones usando AJAX
+    function likePost(event, postId) {
+        event.preventDefault();
+        $.ajax({
+            url: `/like_post/${postId}/`,
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                const button = $(`#like-button-${postId}`);
+                if (response.liked) {
+                    button.html('<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 24">favorite</span> Quitar like');
+                } else {
+                    button.html('<span class="material-symbols-outlined">favorite_border</span> Like');
                 }
-            });
-        }
-    </script>
+            }
+        });
+    }
+
+    // Función para manejar el like en comentarios usando AJAX
+    function likeComment(event, commentId) {
+        event.preventDefault();
+        $.ajax({
+            url: `/like_comment/${commentId}/`,
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                const button = $(`#like-comment-button-${commentId}`);
+                if (response.liked) {
+                    button.html('<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 24">favorite</span> Quitar like');
+                } else {
+                    button.html('<span class="material-symbols-outlined">favorite_border</span> Me Gusta');
+                }
+            }
+        });
+    }
+</script>
 {% endblock "content" %}
