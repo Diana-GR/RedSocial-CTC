@@ -1,14 +1,13 @@
-{%extends "index.html"%}
+{% extends "index.html" %}
 {% block "content" %}
 
-<h1>Editar perfil<h1/>
-    <form  method ="POST" enctype="multipart/form-data">
+<div class="profile-edit-container">
+  <h1>Editar Perfil</h1>
+  <form method="POST" enctype="multipart/form-data" class="profile-edit-form">
     {% csrf_token %}
-    {{ form.as_p }}  
-    <button type="submit">Enviar</button>
-    </form>
+    {{ form.as_p }}
+    <button type="submit" class="btn-submit">Enviar</button>
+  </form>
+</div>
 
-
-
-</form>
 {% endblock "content" %}
