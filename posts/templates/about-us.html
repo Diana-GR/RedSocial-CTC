@@ -1,26 +1,27 @@
 {% extends "index.html" %} {% block "content" %}
+{% load static %}
 <div class="publications-container">
-  <div class="post">
+  <div class="post" style="padding: 45px">
     <div class="post-info">
       <h1 class="text-center">Development Team</h1>
       <h5 class="text-center">Grupo 3:</h5>
-      <div class="row">
+      <div class="row" style="padding: 15px 0px 0px 0px">
       <!-- Integrante 1 -->
         <div class="col-md-4 text-center">
-          <img src="" alt="Diana Guzman" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
-          <h5>Diana Guzman</h5>
+          <img src="{% static 'Diana.jpeg' %}" alt="Diana Guzman" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5 style="padding: 20px 0px 0px 0px">Diana Guzman</h5>
           <p>Backend Developer</p>
         </div>
       <!-- Integrante 2 -->
         <div class="col-md-4 text-center">
-          <img src="" alt="Claudia Aviles" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
-          <h5>Claudia Aviles</h5>
+          <img src="{% static 'Claudia.jpeg' %}" alt="Claudia Aviles" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5 style="padding: 20px 0px 0px 0px">Claudia Aviles</h5>
           <p>Backend Developer</p>
         </div>
       <!-- Integrante 3 -->
         <div class="col-md-4 text-center">
-          <img src="" alt="Valeria Peralta" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
-          <h5>Valeria Peralta</h5>
+          <img src="{% static 'Diana.jpeg' %}" alt="Valeria Peralta" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+          <h5 style="padding: 20px 0px 0px 0px">Valeria Peralta</h5>
           <p>Frontend Developer</p>
         </div>
       </div>
