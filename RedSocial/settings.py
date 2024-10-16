@@ -31,7 +31,10 @@ SECRET_KEY = "django-insecure-07wvt^9#@56%w_)_@$l*d!(-6hwl_ykx5rjp0x+o04s_ysxk_k
 DEBUG = False  # AGREGADO PARA DESPLEGAR
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["*"]  # AGREGADA PARA DESPLEGAR
+ALLOWED_HOSTS = [
+    "https://quicktalk-ct88.onrender.com",
+    "localhost",
+]  # AGREGADA PARA DESPLEGAR
 
 # Application definition
 
@@ -122,8 +125,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # AGREGADA PARA DESPLEGAR
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"  # AGREGADA PARA DESPLEGAR
+)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
