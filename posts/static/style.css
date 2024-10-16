@@ -564,6 +564,21 @@ footer .nav a:hover {
     padding: 20px;
     font-family: Arial, sans-serif;
 }
+.fondo-profile {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.57)), url('Fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Para que cubra toda la altura de la pantalla */
+}
+
+.profile-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Esto ayuda a separar el contenido del fondo */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para un mejor efecto */
+}
 
 /* Cabecera del perfil */
 .profile-header {
@@ -688,13 +703,6 @@ footer .nav a:hover {
 
 
 
-/* General Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-}
 
 /* Contenedor Principal */
 .profile-container-editar {
