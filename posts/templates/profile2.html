@@ -1,14 +1,14 @@
 {% extends "index.html" %} {% block "content" %}
-<div class="profile-container">
-  <div class="profile-header">
+<div class="profile-container-editar">
+  <div class="profile--editar">
     <h1>Perfil de {{ user.username }}</h1>
   </div>
 
-  <div class="profile-info">
-    <div class="profile-avatar">
+  <div class="profile-info-editar">
+    <div class="profile-avatar-editar">
       {% if profile.avatar %}
       <img
-        class="rounded-circle avatar"
+        class="rounded-circle avatar-editar"
         src="{{ profile.avatar.url }}"
         alt="Avatar"
       />
@@ -17,7 +17,7 @@
       {% endif %}
     </div>
 
-    <div class="profile-details">
+    <div class="profile-details-editar">
       <h2>{{ user.username }}</h2>
       <p>{{ profile.biography }}</p>
       <div>
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="profile-actions">
+  <div class="profile-actions-editar">
     {% if sigue_al_usuario %}
     <!-- Si ya sigues al perfil -->
     <form method="POST" action="{% url 'seguirUser' user.id %}">
