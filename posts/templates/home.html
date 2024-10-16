@@ -1,6 +1,6 @@
 {% extends "index.html" %} {% block "content" %}
 <div class="publications-container">
-  <h1 class="title">PUBLICACIONES</h1>
+  <h1 class="title">COMPARTE TUS IDEAS</h1>
 
   <!-- Formulario para crear publicaciones -->
   <div class="create-post-container">
@@ -40,9 +40,10 @@
     {% endif %}
 
     <!-- Botón para dar like a la publicación -->
-    <form method="POST" action="{% url 'like_post' post.id %}">
+    <div class="post-actions">
+    <form method="POST" action="{% url 'like_post' post.id %}" onsubmit="likePost(event, {{ post.id }})">
       {% csrf_token %}
-      <button type="submit" class="btn-like">
+      <button type="submit" id="like-button-{{ post.id }}"  class="btn-like">
         {% if user in post.likes.all %}
         <span class="material-symbols-outlined" style= "font-variation-settings:
     'FILL' 1,
@@ -54,17 +55,18 @@
         {%endif%}
       </button>
     </form>
-
-    <p class="post-likes">{{ post.likes.count }} Me gusta</p>
+      <p id="like-count-{{ post.id }}">{{ post.likes.count }} 
+        
+    Me gusta</p>
+    </div>
 
     <!-- Comentarios -->
     {% if post.comentarios.count > 0 %}
-    <a href="{% url 'comentarios_view' post.id %}" class="view-comments-link"
-      >Ver todos los comentarios</a
-    >
+    <a href="{% url 'comentarios_view' post.id %}" class="view-comments-link" id="view-comments-link-{{ post.id }}"
+>Ver todos los comentarios</a>
     {% endif %}
 
-    <form method="POST" action="{% url 'home' %}">
+    <form method="POST" action="{% url 'home' %}" onsubmit="submitComment(event, {{ post.id }})">
       {% csrf_token %}
       <textarea
         class="comment-textarea"
@@ -80,4 +82,62 @@
   <p>No hay publicaciones.</p>
   {% endfor %}
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Guardar la posición de desplazamiento antes de redirigir
+    function saveScrollPosition() {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Restaurar la posición de desplazamiento al cargar la página
+    window.onload = function() {
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            localpStorage.removeItem('scrollPosition');
+        }
+    }
+
+    // Función para manejar el like usando AJAX
+    function likePost(event, postId) {
+        event.preventDefault();
+        $.ajax({
+            url: `/like_post/${postId}/`,
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Actualizar el botón de like
+                const button = $(`#like-button-${postId}`);
+                const likeCount = $(`#like-count-${postId}`);
+                if (response.liked) {
+                    button.html('<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1, \'wght\' 400, \'GRAD\' 0, \'opsz\' 24">favorite</span> Quitar like');
+                    likeCount.text(parseInt(likeCount.text()) + 1 + " Me gusta");
+                
+                  } else {
+                    button.html('<span class="material-symbols-outlined">favorite_border</span> Like');
+                    likeCount.text(parseInt(likeCount.text()) - 1 + " Me gusta");
+                }
+            }
+        });
+    }
+
+       // Función para manejar el comentario usando AJAX
+       function submitComment(event, postId) {
+        event.preventDefault();
+        const form = $(event.target);
+        const formData = form.serialize();
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                // Actualizar la sección de comentarios
+                $(`#comments-section-${postId}`).html(response.comments_html);
+                form.find('textarea').val(''); // Limpiar el textarea
+            }
+        });
+    }
+</script>
 {% endblock "content" %}

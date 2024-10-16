@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from .forms import PostForm
 from django.contrib import messages
+from django.template.loader import render_to_string
 
 
 def index(request):
@@ -167,35 +168,32 @@ def edit_profile(request):
 
 def like_post(request, post_id):
     if not request.user.is_authenticated:
-        return redirect("login")
+        return JsonResponse({"error": "No autenticado"}, status=401)
 
     post = get_object_or_404(Post, id=post_id)
-
-    # Verificar si el usuario ya ha dado like a esta publicación
+    liked = False
     if request.user in post.likes.all():
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-
+        liked = True
     post.save()
-    return redirect("home")
+    return JsonResponse({"liked": liked})
 
 
 def like_comment(request, comment_id):
     if not request.user.is_authenticated:
-        return redirect("login")
+        return JsonResponse({"error": "No autenticado"}, status=401)
 
     comentario = get_object_or_404(Comentario, id=comment_id)
-    post_id = comentario.post.id
-
-    # Verificar si el usuario ya ha dado like a este comentario
+    liked = False
     if request.user in comentario.likes.all():
         comentario.likes.remove(request.user)
     else:
         comentario.likes.add(request.user)
-
+        liked = True
     comentario.save()
-    return redirect("comentarios_view", post_id=post_id)
+    return JsonResponse({"liked": liked})
 
 
 def aboutus(request):
