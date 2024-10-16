@@ -13,10 +13,15 @@
         placeholder="¿Qué estás pensando?"
         required
       ></textarea>
-      <input type="file" name="image" accept="image/*" id="file-input" style="display: none;" />
-      <label for="file-input" class="btn-upload">
-        Sube una imagen
+      <input type="file" id="imageUpload" name="image" accept="image/*" style="display: none;" onchange="previewImage(event)" />
+      <label for="imageUpload" class="btn-upload">
+        Subir imagen
       </label>
+
+       <!-- Elemento para mostrar la vista previa -->
+    <img id="imagePreview" src="#" alt="Vista previa" style="display: none; max-width: 100%; height: auto;"/>
+
+
       <button type="submit" class="btn-create-post">Publicar</button>
     </form>
   </div>
@@ -42,15 +47,6 @@
         {% endif %}
       </div>
       
-
-
-
-
-
-
-
-
-
       <div class="post-info">
         
         <p class="post-username">{{ post.usuario.username }}</p>
@@ -166,5 +162,24 @@
             }
         });
     }
+
+
+    //Funcion para vista previa de la publicacione
+    function previewImage(event) {
+      const imagePreview = document.getElementById('imagePreview');
+      const file = event.target.files[0]; // Obtiene el primer archivo seleccionado
+  
+      if (file) {
+          const reader = new FileReader(); // Crea un nuevo objeto FileReader
+          reader.onload = function(e) {
+              imagePreview.src = e.target.result; // Establece la fuente de la imagen de vista previa
+              imagePreview.style.display = 'block'; // Muestra la imagen
+          };
+          reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+      } else {
+          imagePreview.src = '#'; // Resetea el src si no hay archivo
+          imagePreview.style.display = 'none'; // Oculta la vista previa
+      }
+  }
 </script>
 {% endblock "content" %}
