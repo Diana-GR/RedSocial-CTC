@@ -1,1 +1,0 @@
-web: gunicorn RedSocial.wsgi:application
